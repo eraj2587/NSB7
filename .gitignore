@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/ClientEndpoint/obj
+/Contracts/WUBS.Contracts/obj
+/ServerEndpoint/obj
+/Utilities/ServiceModelEx/obj
+/Utilities/WUBS.Cct.DataExamples/obj
+/Utilities/WUBS.Services.Common/obj
+/Utilities/WUBS.Utilities.Common/obj
+/WUBS.Infrastructure.Logging/obj
+/WUBS.Infrastructure.Messaging/obj
+/WUBS.Infrastructure.WCF/obj/Release
+/WUBS.Infrastructure.WCF/obj/Debug

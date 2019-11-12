@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7FB22967-A1EE-4537-A3A6-8EE835E80820}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WUBS.Cct.Treasury</RootNamespace>
+    <AssemblyName>WUBS.Cct.Treasury</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>5</LangVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\SharedInternalsVisibleTo.cs">
+      <Link>Properties\SharedInternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="DomainModel\Entities\CctOrderType.cs" />
+    <Compile Include="DomainModel\Entities\ForwardReissue.cs" />
+    <Compile Include="DomainModel\Entities\FuturePaymentEventLog.cs" />
+    <Compile Include="DomainModel\Entities\LineItem.cs" />
+    <Compile Include="DomainModel\Entities\LockInRepurchase.cs" />
+    <Compile Include="DomainModel\Entities\SingleSidedLineItem.cs" />
+    <Compile Include="DomainModel\Entities\LineItemToMatureLineItemMapping.cs" />
+    <Compile Include="DomainModel\Entities\LineItemQuote.cs" />
+    <Compile Include="DomainModel\Entities\LinkedOrder.cs" />
+    <Compile Include="DomainModel\Entities\LockIn.cs" />
+    <Compile Include="DomainModel\Entities\LockInDisbursalRepo.cs" />
+    <Compile Include="DomainModel\Entities\Order.cs" />
+    <Compile Include="DomainModel\Entities\OrderFactory.cs" />
+    <Compile Include="DomainModel\Entities\Quote.cs" />
+    <Compile Include="DomainModel\Enums\ItemType.cs" />
+    <Compile Include="DomainModel\Enums\LineItemFundingMethod.cs" />
+    <Compile Include="DomainModel\Enums\MarkupType.cs" />
+    <Compile Include="DomainModel\Enums\OrderType.cs" />
+    <Compile Include="DomainModel\Enums\PickListType.cs" />
+    <Compile Include="DomainModel\Enums\RateConvention.cs" />
+    <Compile Include="DomainModel\Enums\TradeDirection.cs" />
+    <Compile Include="DomainModel\Enums\Utility\CctCodeAttribute.cs" />
+    <Compile Include="DomainModel\Enums\Utility\EnumUtility.cs" />
+    <Compile Include="DomainModel\Enums\Utility\Exceptions\UnexpectedCctCodeException.cs" />
+    <Compile Include="DomainModel\Financial\Currency.cs" />
+    <Compile Include="DomainModel\Financial\Extensions.cs" />
+    <Compile Include="DomainModel\Financial\Money.cs" />
+    <Compile Include="DomainModel\Financial\Rate.cs" />
+    <Compile Include="DomainModel\Financial\RateMetaData.cs" />
+    <Compile Include="DomainModel\FundingSource\MatureFuturePaymentFundingSource.cs" />
+    <Compile Include="DomainModel\FundingSource\ForwardContractFundingSource.cs" />
+    <Compile Include="DomainModel\FundingSource\FxFundingSource.cs" />
+    <Compile Include="DomainModel\FundingSource\HoldingFundingSource.cs" />
+    <Compile Include="DomainModel\FundingSource\IClientRateComponentProvider.cs" />
+    <Compile Include="DomainModel\FundingSource\IRateProvider.cs" />
+    <Compile Include="DomainModel\FundingSource\LineItemFundingSource.cs" />
+    <Compile Include="DomainModel\FundingSource\SingleSidedFundingSource.cs" />
+    <Compile Include="DomainModel\FundingSource\NullLineItemFundingSource.cs" />
+    <Compile Include="DomainModel\FundingSource\PredeliveryFundingSource.cs" />
+    <Compile Include="DomainModel\Trading\ClientRateComponent.cs" />
+    <Compile Include="DomainModel\Trading\CostRateComponent.cs" />
+    <Compile Include="DomainModel\Trading\MarkupComponent.cs" />
+    <Compile Include="DomainModel\VendorDeals\WssVendorPayment.cs" />
+    <Compile Include="DomainModel\VendorDeals\WssFxTrade.cs" />
+    <Compile Include="DomainModel\Vms\RecordStatus.cs" />
+    <Compile Include="DomainModel\Vms\VmsEventLog.cs" />
+    <Compile Include="Exceptions\InvalidCurrencyException.cs" />
+    <Compile Include="Exceptions\InvalidForwardContractIdException.cs" />
+    <Compile Include="Exceptions\InvalidFundingSourceException.cs" />
+    <Compile Include="Exceptions\UnableToRetrieveRelatedLineItemException.cs" />
+    <Compile Include="Exceptions\UnableToRetrieveRelatedOrderException.cs" />
+    <Compile Include="Exceptions\UnableToRetrieveValueDateException.cs" />
+    <Compile Include="Exceptions\UnableToRetrieveWindowStartDateException.cs" />
+    <Compile Include="Infrastructure\Caches\CctRepurchaseTypeCache.cs" />
+    <Compile Include="Infrastructure\Caches\CctOrderTypeCache.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\CctOrderTypeCacheMapper.cs" />
+    <Compile Include="Infrastructure\Caches\ItemTypeDescriptionCache.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\Interfaces\ICctOrderTypeCacheMapper.cs" />
+    <Compile Include="Infrastructure\Caches\StatusListItemDescriptionCache.cs" />
+    <Compile Include="Mappers\Visitors\NonQuotedMatureFuturePaymentRepoOrderVisitor.cs" />
+    <Compile Include="Services\CctTreasuryOrderService.cs" />
+    <Compile Include="Infrastructure\Caches\Base\ItemTypeCache.cs" />
+    <Compile Include="Infrastructure\Caches\Base\PickListItemCache.cs" />
+    <Compile Include="Infrastructure\Caches\Base\ValidatingCache.cs" />
+    <Compile Include="Infrastructure\Caches\Cache.cs" />
+    <Compile Include="Infrastructure\Caches\CurrencyCache.cs" />
+    <Compile Include="Infrastructure\Caches\CurrencyHolidayCache.cs" />
+    <Compile Include="Infrastructure\Caches\ICacheDependencies.cs" />
+    <Compile Include="Infrastructure\Caches\ItemTypeCache.cs" />
+    <Compile Include="Infrastructure\Caches\LineItemFundingMethodCache.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\CurrencyHolidayCacheMapper.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\CurrencyCacheMapper.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\Interfaces\ICurrencyHolidayCacheMapper.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\Interfaces\ICurrencyCacheMapper.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\Interfaces\IItemTypeMapper.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\Interfaces\IPickListMapper.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\ItemTypeMapper.cs" />
+    <Compile Include="Infrastructure\Caches\Mappers\PickListMapper.cs" />
+    <Compile Include="Infrastructure\Caches\MarkupTypeCache.cs" />
+    <Compile Include="Infrastructure\Caches\OrderTypeDescriptionCache.cs" />
+    <Compile Include="Infrastructure\Caches\OrderTypeCache.cs" />
+    <Compile Include="Infrastructure\Configuration\Configuration.cs" />
+    <Compile Include="Infrastructure\Exceptions\InvalidCacheItemException.cs" />
+    <Compile Include="Infrastructure\Exceptions\ServiceProviderCommunicationException.cs" />
+    <Compile Include="Infrastructure\Exceptions\SqlCommandExecutionException.cs" />
+    <Compile Include="Infrastructure\Monads\Option.cs" />
+    <Compile Include="Infrastructure\Monads\OptionHelpers.cs" />
+    <Compile Include="Infrastructure\Monads\Result.cs" />
+    <Compile Include="Infrastructure\Persistence\AppConfigDatabaseConnectionStrings.cs" />
+    <Compile Include="Infrastructure\Persistence\DB\Database.cs" />
+    <Compile Include="Infrastructure\Persistence\Providers\DatabaseConnectionStringProvider.cs" />
+    <Compile Include="Infrastructure\Persistence\Providers\IDatabaseConnectionStringProvider.cs" />
+    <Compile Include="Infrastructure\ServiceProviders\ServiceProvider.cs" />
+    <Compile Include="Infrastructure\Utilities\AppSettingsReadingUtility.cs" />
+    <Compile Include="Infrastructure\Utilities\DBReadingUtility.cs" />
+    <Compile Include="Infrastructure\Utilities\DbWritingUtility.cs" />
+    <Compile Include="Infrastructure\Utilities\Extensions.cs" />
+    <Compile Include="Mappers\Factories\FundingSourceFactory.cs" />
+    <Compile Include="Mappers\Factories\FundingSourceFactoryHelper.cs" />
+    <Compile Include="Mappers\FuturePaymentEventLogMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IFuturePaymentEventLogMapper.cs" />
+    <Compile Include="Mappers\Interfaces\ILineItemToMatureLineItemMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IBankAccountMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IWssFxTradeToNostroMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IWssVendorPaymentMapper.cs" />
+    <Compile Include="Mappers\ContractAggregatorMapper.cs" />
+    <Compile Include="Mappers\Interfaces\ILineItemMapper.cs" />
+    <Compile Include="Mappers\Interfaces\ILineItemToContractMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IOrderLogMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IOrderMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IQuoteMapper.cs" />
+    <Compile Include="Mappers\Interfaces\ISaveOrder.cs" />
+    <Compile Include="Mappers\Interfaces\IVmsEventLogMapper.cs" />
+    <Compile Include="Mappers\LineItemMapper.cs" />
+    <Compile Include="Mappers\LineItemToMatureLineItemMapper.cs" />
+    <Compile Include="Mappers\LineItemToContractMapper.cs" />
+    <Compile Include="Mappers\LineItemToContractMapping.cs" />
+    <Compile Include="Mappers\OrderMapper.cs" />
+    <Compile Include="Mappers\Visitors\BankListVisitor.cs" />
+    <Compile Include="Mappers\Visitors\ForwardContractFundingSourceVisitor.cs" />
+    <Compile Include="Mappers\Visitors\NonQuotedLineItemVisitor.cs" />
+    <Compile Include="Mappers\Visitors\SellPaymentDuplicateLineItemVisitor.cs" />
+    <Compile Include="Mappers\Visitors\LineItemFundingSourceVisitor.cs" />
+    <Compile Include="Mappers\Visitors\MatureFuturePaymentFundingSourceVisitor.cs" />
+    <Compile Include="Mappers\Visitors\MatureForwardVisitor.cs" />
+    <Compile Include="Mappers\Visitors\LineItemVisitor.cs" />
+    <Compile Include="Mappers\WssFxTradeToNostroMapper.cs" />
+    <Compile Include="Mappers\QuoteMapper.cs" />
+    <Compile Include="Mappers\Visitors\IVisitor.cs" />
+    <Compile Include="Mappers\Visitors\LinkedOrderVisitor.cs" />
+    <Compile Include="Mappers\Visitors\LockInDisbursalRepoVisitor.cs" />
+    <Compile Include="Mappers\Visitors\OrderModifiedVisitor.cs" />
+    <Compile Include="Mappers\Visitors\OrderVisitor.cs" />
+    <Compile Include="Mappers\Visitors\OrderSplitVisitor.cs" />
+    <Compile Include="Mappers\Visitors\ReissueVisitor.cs" />
+    <Compile Include="Mappers\Visitors\ValueDateVisitor.cs" />
+    <Compile Include="Mappers\VmsEventLogMapper.cs" />
+    <Compile Include="Mappers\BankAccountMapper.cs" />
+    <Compile Include="Mappers\WssVendorPaymentMapper.cs" />
+    <Compile Include="Mappers\Visitors\LinkedLinkedOrderVisitor.cs" />
+    <Compile Include="Services\ValueDateService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ValueDateWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceProviders\Exceptions\ValueDateWebServiceUnavailableException.cs" />
+    <Compile Include="ServiceProviders\Interfaces\IValueDateServiceProvider.cs" />
+    <Compile Include="ServiceProviders\ValueDateServiceProvider.cs" />
+    <Compile Include="Services\ValueDateServiceConfigurationProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Service References\ValueDateWebService\ValueDateService.wsdl" />
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GeneratePaymentValueDateDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetDisburseValueDatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetForwardOrderValueDatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetForwardOrderValueDatesV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetLockInValueDatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetLockInValueDatesV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetNDFOrderValueDatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetNDFOrderValueDatesV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetOrderValueDatesByAppResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetOrderValueDatesByAppV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetOrderValueDatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetOrderValueDatesV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetPaymentValueDateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetRolloverOrderValueDatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetSettlementValueDateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetValueDateFromReleaseDateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ValueDateWebService\WUBS.Cct.Treasury.ValueDateWebService.GetValueDatesForIntoHoldingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ValueDateWebService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ValueDateWebService\ValueDateService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ValueDateWebService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ValueDateWebService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ValueDateWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

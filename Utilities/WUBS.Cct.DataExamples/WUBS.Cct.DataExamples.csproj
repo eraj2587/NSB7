@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA0C61EB-9BD8-459D-A8DB-EF408BFCE4B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WUBS.Cct.DataExamples</RootNamespace>
+    <AssemblyName>WUBS.Cct.DataExamples</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PetaPoco, Version=5.1.171.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\PetaPoco.Core.Compiled.5.1.171\lib\net45\PetaPoco.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\SharedInternalsVisibleTo.cs">
+      <Link>Properties\SharedInternalsVisibleTo.cs</Link>
+    </Compile>
+    <Compile Include="DataBuilders\ContributingItemBuilder.cs" />
+    <Compile Include="DataBuilders\CrossCurrencyBuilder.cs" />
+    <Compile Include="DataBuilders\LineItemBuilder.cs" />
+    <Compile Include="DataBuilders\OrderDetailValueDateBuilder.cs" />
+    <Compile Include="DataBuilders\LineItemToContractMappingBuilder.cs" />
+    <Compile Include="DataBuilders\OrderHeaderBuilder.cs" />
+    <Compile Include="DBFactoryForTesting.cs" />
+    <Compile Include="Enums\ItemRate.cs" />
+    <Compile Include="DataBuilders\QuoteBuilder.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithDisbursalThatCreatesTwoAdjustmentThatOffsetsEach_History.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithOverDisbursalThatCreatesTwoAdjustmentEntries_History.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithDisbursalThatOffsetTheLockinAmount_History.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithQuotedOvervaluedDisbursal_History.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithExtensionAdjustmentDisbursal_History.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithSameRateOvervaluedDisbursal_History.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithDisbursalAndExtensionAdjustment_Daily.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithUndervaluedDisbursalAndWriteOffAdjustment_History.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithUndervaluedDisbursalAndWriteOffAdjustment_Daily.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithDisbursalAndInconsistentStateData_Daily.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithDisbursal_Daily.cs" />
+    <Compile Include="Lockins\Disbursal\LockInWithDisbursal_History.cs" />
+    <Compile Include="Enums\CurrencyDefn.cs" />
+    <Compile Include="Forwards\Repo\ClientForwardSaleRepurchase_History.cs" />
+    <Compile Include="Forwards\New\ClientForwardSale_History.cs" />
+    <Compile Include="Forwards\New\ClientForwardSale_Daily.cs" />
+    <Compile Include="Forwards\Repo\ClientForwardSaleRepurchase_Daily.cs" />
+    <Compile Include="Lockins\New\LockIn_Daily.cs" />
+    <Compile Include="Lockins\New\LockIn_History.cs" />
+    <Compile Include="Lockins\Repurchase\LockInWithRepurchaseOfDisbursal_Daily.cs" />
+    <Compile Include="Lockins\Repurchase\LockInWithRepurchaseOfDisbursal_History.cs" />
+    <Compile Include="Spots\New\NostroPayment_Daily.cs" />
+    <Compile Include="Spots\New\PaymentsNewWithContributingItem_History.cs" />
+    <Compile Include="Spots\New\PaymentsNewWithContributingItem_Daily.cs" />
+    <Compile Include="Spots\New\PaymentsNewWithTwoContributingItems_History.cs" />
+    <Compile Include="Spots\New\PaymentsNewWithTwoContributingItems_Daily.cs" />
+    <Compile Include="Spots\New\PaymentsNewWithTwoLineItems_History.cs" />
+    <Compile Include="Spots\New\PaymentsNewWithTwoLineItems_Daily.cs" />
+    <Compile Include="Spots\New\PaymentsNewWithLineItemToContractMapping_Daily.cs" />
+    <Compile Include="Spots\New\PaymentsNewWithVmsSplit_Daily.cs" />
+    <Compile Include="Spots\New\PaymentsNew_History.cs" />
+    <Compile Include="TestDataContainer\DateTimeWrapper.cs" />
+    <Compile Include="TestDataContainer\RLHistory.cs">
+      <DependentUpon>RLHistory.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TestDataContainer\CRS.cs">
+      <DependentUpon>CRS.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TestDataContainer\VMARS.cs">
+      <DependentUpon>VMARS.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TestDataContainer\VMS.cs">
+      <DependentUpon>VMS.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TestDataContainer\Rueschlink.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Rueschlink.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDataContainer\TestDataContainer.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Spots\New\PaymentsNew_Daily.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forwards\Drawdown\" />
+    <Folder Include="Forwards\Modification\" />
+    <Folder Include="Forwards\Reissue\" />
+    <Folder Include="OFAC\" />
+    <Folder Include="Spots\Reissue\" />
+    <Folder Include="Spots\Repo\" />
+    <Folder Include="VMS\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Generators\InMemoryDatabase.Core.ttinclude" />
+    <None Include="Generators\InMemoryDatabase.Generator.ttinclude" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestDataContainer\RLHistory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RLHistory.cs</LastGenOutput>
+    </Content>
+    <Content Include="TestDataContainer\CRS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CRS.cs</LastGenOutput>
+    </Content>
+    <Content Include="TestDataContainer\VMARS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VMARS.cs</LastGenOutput>
+    </Content>
+    <Content Include="TestDataContainer\VMS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VMS.cs</LastGenOutput>
+    </Content>
+    <Content Include="TestDataContainer\Rueschlink.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Rueschlink.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ResourceAccess\WUBS.ResourceAccess.CctData\WUBS.ResourceAccess.CctDataRA.csproj">
+      <Project>{3f99b9b2-9381-4b38-9a1a-27d5e84eab4d}</Project>
+      <Name>WUBS.ResourceAccess.CctDataRA</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(ProjectDir)..\..\..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(ProjectDir)..\..\..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetPaymentValueDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="orderDetailId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentValueDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPaymentValueDateResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="valueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="deadline" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="cutoff" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetValueDateFromReleaseDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneBankCountryId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="beneBankSwiftAddress" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="releaseDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetValueDateFromReleaseDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetValueDateFromReleaseDateResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDateTime">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="dateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPaymentMinimumValueDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="orderDetailId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentMinimumValueDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPaymentMinimumValueDateResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGeneratePaymentValueDates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="clientOrderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGeneratePaymentValueDatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGeneratePaymentValueDatesResult" type="tns:ArrayOfGeneratePaymentValueDateDetails" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGeneratePaymentValueDateDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GeneratePaymentValueDateDetails" nillable="true" type="tns:GeneratePaymentValueDateDetails" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="GeneratePaymentValueDateDetails">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OrderDetailId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ValueDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GeneratePaymentValueDates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="clientOrderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GeneratePaymentValueDatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GeneratePaymentValueDatesResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettlementTransmissionDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="clientOrderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="jitSettlementOption" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettlementTransmissionDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetSettlementTransmissionDateResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettlementValueDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="essLogId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettlementValueDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetSettlementValueDateResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="valueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="deadline" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="cutoff" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateOrderValueDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="orderDetailId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateOrderValueDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ValidateOrderValueDateResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetValueDatesForIntoHolding">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="targetCurrencyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="settlementCurrencyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="paymentMethodId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fundedBy" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="contributingItems" type="tns:ArrayOfContributingItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfContributingItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ContributingItem" nillable="true" type="tns:ContributingItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ContributingItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemNo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderDetailId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ClientOrderId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FundedById" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FundedBy" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountInSc" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rate" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Extension" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExtensionReporting" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExtensionUsd" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="RelatedOrderDetailId" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Initdt" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Initid" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Upddt" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Updid" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountNDec" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RateNDec" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="QuoteId" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemRateIsPer" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RateMultiplier" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PreDelivery" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForwardRate" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForwardRateIsPer" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForwardRateMultiplier" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForwardRateNDec" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ForwardExtension" nillable="true" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsNew" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetValueDatesForIntoHoldingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetValueDatesForIntoHoldingResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderValueDatesV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="orderDetailId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="targetCurrencyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="settlementCurrencyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="paymentMethodId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneBankCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fundedBy" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="beneBankSwiftAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contributingItems" type="tns:ArrayOfContributingItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderValueDatesV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetOrderValueDatesV2Result" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderValueDates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="orderDetailId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="paymentMethodId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneBankCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fundedBy" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="beneBankSwiftAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contributingItems" type="tns:ArrayOfContributingItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderValueDatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetOrderValueDatesResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderValueDatesByAppV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderDetailId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="targetCurrencyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="settlementCurrencyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="paymentMethodId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneBankCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fundedBy" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="beneBankSwiftAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contributingItems" type="tns:ArrayOfContributingItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderValueDatesByAppV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetOrderValueDatesByAppV2Result" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderValueDatesByApp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderDetailId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="paymentMethodId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneBankCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fundedBy" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="beneBankSwiftAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contributingItems" type="tns:ArrayOfContributingItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderValueDatesByAppResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetOrderValueDatesByAppResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetForwardOrderValueDatesV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="targetCurrencyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="settlementCurrencyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="forwardStartDate" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetForwardOrderValueDatesV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetForwardOrderValueDatesV2Result" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumForwardStartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumForwardStartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumForwardEndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumForwardEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetForwardOrderValueDates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="forwardStartDate" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetForwardOrderValueDatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetForwardOrderValueDatesResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumForwardStartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumForwardStartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumForwardEndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumForwardEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRolloverOrderValueDates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="originalForwardEndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="forwardStartDate" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="isMarketRateRollover" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="originalForwardBookingDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRolloverOrderValueDatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetRolloverOrderValueDatesResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumForwardStartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumForwardStartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumForwardEndDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumForwardEndDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNDFOrderValueDatesV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="targetCurrencyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="settlementCurrencyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="forwardDate" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNDFOrderValueDatesV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetNDFOrderValueDatesV2Result" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumFixingDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultFixingDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumFixingDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNDFOrderValueDates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="forwardDate" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNDFOrderValueDatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetNDFOrderValueDatesResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumForwardDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumFixingDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultFixingDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumFixingDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReleaseDateFromValueDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneBankCountryId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="beneBankSwiftAddress" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="valueDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReleaseDateFromValueDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReleaseDateFromValueDateResult" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLockInValueDatesV2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="targetCurrencyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="settlementCurrencyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLockInValueDatesV2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetLockInValueDatesV2Result" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="minValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLockInValueDates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="currencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLockInValueDatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetLockInValueDatesResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="minValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDisburseValueDates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="userId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientOrderId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderDetailId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="targetCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="settlementCurrencyId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="itemTypeId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="paymentMethodId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="beneBankCountryId" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fundedBy" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="beneBankSwiftAddress" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="orderDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="contributingItems" type="tns:ArrayOfContributingItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDisburseValueDatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetDisburseValueDatesResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="minimumValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="defaultValueDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="maximumValueDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="blackoutDates" type="tns:ArrayOfDateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="dateTime" type="s:dateTime" />
+      <s:element name="ArrayOfGeneratePaymentValueDateDetails" nillable="true" type="tns:ArrayOfGeneratePaymentValueDateDetails" />
+      <s:element name="int" type="s:int" />
+      <s:element name="ArrayOfDateTime" nillable="true" type="tns:ArrayOfDateTime" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetPaymentValueDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentValueDate" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentValueDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentValueDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetValueDateFromReleaseDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetValueDateFromReleaseDate" />
+  </wsdl:message>
+  <wsdl:message name="GetValueDateFromReleaseDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetValueDateFromReleaseDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentMinimumValueDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentMinimumValueDate" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentMinimumValueDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentMinimumValueDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGeneratePaymentValueDatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGeneratePaymentValueDates" />
+  </wsdl:message>
+  <wsdl:message name="GetGeneratePaymentValueDatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGeneratePaymentValueDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GeneratePaymentValueDatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GeneratePaymentValueDates" />
+  </wsdl:message>
+  <wsdl:message name="GeneratePaymentValueDatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GeneratePaymentValueDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSettlementTransmissionDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSettlementTransmissionDate" />
+  </wsdl:message>
+  <wsdl:message name="GetSettlementTransmissionDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSettlementTransmissionDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSettlementValueDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSettlementValueDate" />
+  </wsdl:message>
+  <wsdl:message name="GetSettlementValueDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSettlementValueDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderValueDateSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateOrderValueDate" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderValueDateSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateOrderValueDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetValueDatesForIntoHoldingSoapIn">
+    <wsdl:part name="parameters" element="tns:GetValueDatesForIntoHolding" />
+  </wsdl:message>
+  <wsdl:message name="GetValueDatesForIntoHoldingSoapOut">
+    <wsdl:part name="parameters" element="tns:GetValueDatesForIntoHoldingResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderValueDatesV2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderValueDatesV2" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderValueDatesV2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderValueDatesV2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderValueDatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderValueDates" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderValueDatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderValueDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderValueDatesByAppV2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderValueDatesByAppV2" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderValueDatesByAppV2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderValueDatesByAppV2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderValueDatesByAppSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderValueDatesByApp" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderValueDatesByAppSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderValueDatesByAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetForwardOrderValueDatesV2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetForwardOrderValueDatesV2" />
+  </wsdl:message>
+  <wsdl:message name="GetForwardOrderValueDatesV2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetForwardOrderValueDatesV2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetForwardOrderValueDatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetForwardOrderValueDates" />
+  </wsdl:message>
+  <wsdl:message name="GetForwardOrderValueDatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetForwardOrderValueDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRolloverOrderValueDatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRolloverOrderValueDates" />
+  </wsdl:message>
+  <wsdl:message name="GetRolloverOrderValueDatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRolloverOrderValueDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNDFOrderValueDatesV2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetNDFOrderValueDatesV2" />
+  </wsdl:message>
+  <wsdl:message name="GetNDFOrderValueDatesV2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetNDFOrderValueDatesV2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetNDFOrderValueDatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNDFOrderValueDates" />
+  </wsdl:message>
+  <wsdl:message name="GetNDFOrderValueDatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNDFOrderValueDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReleaseDateFromValueDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReleaseDateFromValueDate" />
+  </wsdl:message>
+  <wsdl:message name="GetReleaseDateFromValueDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReleaseDateFromValueDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLockInValueDatesV2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetLockInValueDatesV2" />
+  </wsdl:message>
+  <wsdl:message name="GetLockInValueDatesV2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetLockInValueDatesV2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetLockInValueDatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLockInValueDates" />
+  </wsdl:message>
+  <wsdl:message name="GetLockInValueDatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLockInValueDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDisburseValueDatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDisburseValueDates" />
+  </wsdl:message>
+  <wsdl:message name="GetDisburseValueDatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDisburseValueDatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentMinimumValueDateHttpGetIn">
+    <wsdl:part name="orderDetailId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentMinimumValueDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:dateTime" />
+  </wsdl:message>
+  <wsdl:message name="GetGeneratePaymentValueDatesHttpGetIn">
+    <wsdl:part name="clientOrderId" type="s:string" />
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGeneratePaymentValueDatesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGeneratePaymentValueDateDetails" />
+  </wsdl:message>
+  <wsdl:message name="GeneratePaymentValueDatesHttpGetIn">
+    <wsdl:part name="clientOrderId" type="s:string" />
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GeneratePaymentValueDatesHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetSettlementTransmissionDateHttpGetIn">
+    <wsdl:part name="clientOrderId" type="s:string" />
+    <wsdl:part name="jitSettlementOption" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSettlementTransmissionDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:dateTime" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderValueDateHttpGetIn">
+    <wsdl:part name="orderDetailId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderValueDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:dateTime" />
+  </wsdl:message>
+  <wsdl:message name="GetReleaseDateFromValueDateHttpGetIn">
+    <wsdl:part name="clientId" type="s:string" />
+    <wsdl:part name="targetCurrencyId" type="s:string" />
+    <wsdl:part name="settlementCurrencyId" type="s:string" />
+    <wsdl:part name="itemTypeId" type="s:string" />
+    <wsdl:part name="beneId" type="s:string" />
+    <wsdl:part name="beneBankCountryId" type="s:string" />
+    <wsdl:part name="beneBankSwiftAddress" type="s:string" />
+    <wsdl:part name="valueDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetReleaseDateFromValueDateHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDateTime" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentMinimumValueDateHttpPostIn">
+    <wsdl:part name="orderDetailId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentMinimumValueDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:dateTime" />
+  </wsdl:message>
+  <wsdl:message name="GetGeneratePaymentValueDatesHttpPostIn">
+    <wsdl:part name="clientOrderId" type="s:string" />
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGeneratePaymentValueDatesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfGeneratePaymentValueDateDetails" />
+  </wsdl:message>
+  <wsdl:message name="GeneratePaymentValueDatesHttpPostIn">
+    <wsdl:part name="clientOrderId" type="s:string" />
+    <wsdl:part name="userId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GeneratePaymentValueDatesHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="GetSettlementTransmissionDateHttpPostIn">
+    <wsdl:part name="clientOrderId" type="s:string" />
+    <wsdl:part name="jitSettlementOption" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSettlementTransmissionDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:dateTime" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderValueDateHttpPostIn">
+    <wsdl:part name="orderDetailId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidateOrderValueDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:dateTime" />
+  </wsdl:message>
+  <wsdl:message name="GetReleaseDateFromValueDateHttpPostIn">
+    <wsdl:part name="clientId" type="s:string" />
+    <wsdl:part name="targetCurrencyId" type="s:string" />
+    <wsdl:part name="settlementCurrencyId" type="s:string" />
+    <wsdl:part name="itemTypeId" type="s:string" />
+    <wsdl:part name="beneId" type="s:string" />
+    <wsdl:part name="beneBankCountryId" type="s:string" />
+    <wsdl:part name="beneBankSwiftAddress" type="s:string" />
+    <wsdl:part name="valueDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetReleaseDateFromValueDateHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDateTime" />
+  </wsdl:message>
+  <wsdl:portType name="ValueDateServiceSoap">
+    <wsdl:operation name="GetPaymentValueDate">
+      <wsdl:input message="tns:GetPaymentValueDateSoapIn" />
+      <wsdl:output message="tns:GetPaymentValueDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetValueDateFromReleaseDate">
+      <wsdl:input message="tns:GetValueDateFromReleaseDateSoapIn" />
+      <wsdl:output message="tns:GetValueDateFromReleaseDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentMinimumValueDate">
+      <wsdl:input message="tns:GetPaymentMinimumValueDateSoapIn" />
+      <wsdl:output message="tns:GetPaymentMinimumValueDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratePaymentValueDates">
+      <wsdl:input message="tns:GetGeneratePaymentValueDatesSoapIn" />
+      <wsdl:output message="tns:GetGeneratePaymentValueDatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GeneratePaymentValueDates">
+      <wsdl:input message="tns:GeneratePaymentValueDatesSoapIn" />
+      <wsdl:output message="tns:GeneratePaymentValueDatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementTransmissionDate">
+      <wsdl:input message="tns:GetSettlementTransmissionDateSoapIn" />
+      <wsdl:output message="tns:GetSettlementTransmissionDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementValueDate">
+      <wsdl:input message="tns:GetSettlementValueDateSoapIn" />
+      <wsdl:output message="tns:GetSettlementValueDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrderValueDate">
+      <wsdl:input message="tns:ValidateOrderValueDateSoapIn" />
+      <wsdl:output message="tns:ValidateOrderValueDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetValueDatesForIntoHolding">
+      <wsdl:input message="tns:GetValueDatesForIntoHoldingSoapIn" />
+      <wsdl:output message="tns:GetValueDatesForIntoHoldingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesV2">
+      <wsdl:input message="tns:GetOrderValueDatesV2SoapIn" />
+      <wsdl:output message="tns:GetOrderValueDatesV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDates">
+      <wsdl:input message="tns:GetOrderValueDatesSoapIn" />
+      <wsdl:output message="tns:GetOrderValueDatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesByAppV2">
+      <wsdl:input message="tns:GetOrderValueDatesByAppV2SoapIn" />
+      <wsdl:output message="tns:GetOrderValueDatesByAppV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesByApp">
+      <wsdl:input message="tns:GetOrderValueDatesByAppSoapIn" />
+      <wsdl:output message="tns:GetOrderValueDatesByAppSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetForwardOrderValueDatesV2">
+      <wsdl:input message="tns:GetForwardOrderValueDatesV2SoapIn" />
+      <wsdl:output message="tns:GetForwardOrderValueDatesV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetForwardOrderValueDates">
+      <wsdl:input message="tns:GetForwardOrderValueDatesSoapIn" />
+      <wsdl:output message="tns:GetForwardOrderValueDatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRolloverOrderValueDates">
+      <wsdl:input message="tns:GetRolloverOrderValueDatesSoapIn" />
+      <wsdl:output message="tns:GetRolloverOrderValueDatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNDFOrderValueDatesV2">
+      <wsdl:input message="tns:GetNDFOrderValueDatesV2SoapIn" />
+      <wsdl:output message="tns:GetNDFOrderValueDatesV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNDFOrderValueDates">
+      <wsdl:input message="tns:GetNDFOrderValueDatesSoapIn" />
+      <wsdl:output message="tns:GetNDFOrderValueDatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReleaseDateFromValueDate">
+      <wsdl:input message="tns:GetReleaseDateFromValueDateSoapIn" />
+      <wsdl:output message="tns:GetReleaseDateFromValueDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLockInValueDatesV2">
+      <wsdl:input message="tns:GetLockInValueDatesV2SoapIn" />
+      <wsdl:output message="tns:GetLockInValueDatesV2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLockInValueDates">
+      <wsdl:input message="tns:GetLockInValueDatesSoapIn" />
+      <wsdl:output message="tns:GetLockInValueDatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDisburseValueDates">
+      <wsdl:input message="tns:GetDisburseValueDatesSoapIn" />
+      <wsdl:output message="tns:GetDisburseValueDatesSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ValueDateServiceHttpGet">
+    <wsdl:operation name="GetPaymentMinimumValueDate">
+      <wsdl:input message="tns:GetPaymentMinimumValueDateHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentMinimumValueDateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratePaymentValueDates">
+      <wsdl:input message="tns:GetGeneratePaymentValueDatesHttpGetIn" />
+      <wsdl:output message="tns:GetGeneratePaymentValueDatesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GeneratePaymentValueDates">
+      <wsdl:input message="tns:GeneratePaymentValueDatesHttpGetIn" />
+      <wsdl:output message="tns:GeneratePaymentValueDatesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementTransmissionDate">
+      <wsdl:input message="tns:GetSettlementTransmissionDateHttpGetIn" />
+      <wsdl:output message="tns:GetSettlementTransmissionDateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrderValueDate">
+      <wsdl:input message="tns:ValidateOrderValueDateHttpGetIn" />
+      <wsdl:output message="tns:ValidateOrderValueDateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReleaseDateFromValueDate">
+      <wsdl:input message="tns:GetReleaseDateFromValueDateHttpGetIn" />
+      <wsdl:output message="tns:GetReleaseDateFromValueDateHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ValueDateServiceHttpPost">
+    <wsdl:operation name="GetPaymentMinimumValueDate">
+      <wsdl:input message="tns:GetPaymentMinimumValueDateHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentMinimumValueDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratePaymentValueDates">
+      <wsdl:input message="tns:GetGeneratePaymentValueDatesHttpPostIn" />
+      <wsdl:output message="tns:GetGeneratePaymentValueDatesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GeneratePaymentValueDates">
+      <wsdl:input message="tns:GeneratePaymentValueDatesHttpPostIn" />
+      <wsdl:output message="tns:GeneratePaymentValueDatesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementTransmissionDate">
+      <wsdl:input message="tns:GetSettlementTransmissionDateHttpPostIn" />
+      <wsdl:output message="tns:GetSettlementTransmissionDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrderValueDate">
+      <wsdl:input message="tns:ValidateOrderValueDateHttpPostIn" />
+      <wsdl:output message="tns:ValidateOrderValueDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReleaseDateFromValueDate">
+      <wsdl:input message="tns:GetReleaseDateFromValueDateHttpPostIn" />
+      <wsdl:output message="tns:GetReleaseDateFromValueDateHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ValueDateServiceSoap" type="tns:ValueDateServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPaymentValueDate">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentValueDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValueDateFromReleaseDate">
+      <soap:operation soapAction="http://tempuri.org/GetValueDateFromReleaseDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentMinimumValueDate">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentMinimumValueDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratePaymentValueDates">
+      <soap:operation soapAction="http://tempuri.org/GetGeneratePaymentValueDates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeneratePaymentValueDates">
+      <soap:operation soapAction="http://tempuri.org/GeneratePaymentValueDates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementTransmissionDate">
+      <soap:operation soapAction="http://tempuri.org/GetSettlementTransmissionDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementValueDate">
+      <soap:operation soapAction="http://tempuri.org/GetSettlementValueDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrderValueDate">
+      <soap:operation soapAction="http://tempuri.org/ValidateOrderValueDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValueDatesForIntoHolding">
+      <soap:operation soapAction="http://tempuri.org/GetValueDatesForIntoHolding" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesV2">
+      <soap:operation soapAction="http://tempuri.org/GetOrderValueDatesV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDates">
+      <soap:operation soapAction="http://tempuri.org/GetOrderValueDates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesByAppV2">
+      <soap:operation soapAction="http://tempuri.org/GetOrderValueDatesByAppV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesByApp">
+      <soap:operation soapAction="http://tempuri.org/GetOrderValueDatesByApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetForwardOrderValueDatesV2">
+      <soap:operation soapAction="http://tempuri.org/GetForwardOrderValueDatesV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetForwardOrderValueDates">
+      <soap:operation soapAction="http://tempuri.org/GetForwardOrderValueDates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRolloverOrderValueDates">
+      <soap:operation soapAction="http://tempuri.org/GetRolloverOrderValueDates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNDFOrderValueDatesV2">
+      <soap:operation soapAction="http://tempuri.org/GetNDFOrderValueDatesV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNDFOrderValueDates">
+      <soap:operation soapAction="http://tempuri.org/GetNDFOrderValueDates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReleaseDateFromValueDate">
+      <soap:operation soapAction="http://tempuri.org/GetReleaseDateFromValueDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLockInValueDatesV2">
+      <soap:operation soapAction="http://tempuri.org/GetLockInValueDatesV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLockInValueDates">
+      <soap:operation soapAction="http://tempuri.org/GetLockInValueDates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDisburseValueDates">
+      <soap:operation soapAction="http://tempuri.org/GetDisburseValueDates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ValueDateServiceSoap12" type="tns:ValueDateServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPaymentValueDate">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentValueDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValueDateFromReleaseDate">
+      <soap12:operation soapAction="http://tempuri.org/GetValueDateFromReleaseDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentMinimumValueDate">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentMinimumValueDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratePaymentValueDates">
+      <soap12:operation soapAction="http://tempuri.org/GetGeneratePaymentValueDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeneratePaymentValueDates">
+      <soap12:operation soapAction="http://tempuri.org/GeneratePaymentValueDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementTransmissionDate">
+      <soap12:operation soapAction="http://tempuri.org/GetSettlementTransmissionDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementValueDate">
+      <soap12:operation soapAction="http://tempuri.org/GetSettlementValueDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrderValueDate">
+      <soap12:operation soapAction="http://tempuri.org/ValidateOrderValueDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValueDatesForIntoHolding">
+      <soap12:operation soapAction="http://tempuri.org/GetValueDatesForIntoHolding" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesV2">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderValueDatesV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDates">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderValueDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesByAppV2">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderValueDatesByAppV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderValueDatesByApp">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderValueDatesByApp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetForwardOrderValueDatesV2">
+      <soap12:operation soapAction="http://tempuri.org/GetForwardOrderValueDatesV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetForwardOrderValueDates">
+      <soap12:operation soapAction="http://tempuri.org/GetForwardOrderValueDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRolloverOrderValueDates">
+      <soap12:operation soapAction="http://tempuri.org/GetRolloverOrderValueDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNDFOrderValueDatesV2">
+      <soap12:operation soapAction="http://tempuri.org/GetNDFOrderValueDatesV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNDFOrderValueDates">
+      <soap12:operation soapAction="http://tempuri.org/GetNDFOrderValueDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReleaseDateFromValueDate">
+      <soap12:operation soapAction="http://tempuri.org/GetReleaseDateFromValueDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLockInValueDatesV2">
+      <soap12:operation soapAction="http://tempuri.org/GetLockInValueDatesV2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLockInValueDates">
+      <soap12:operation soapAction="http://tempuri.org/GetLockInValueDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDisburseValueDates">
+      <soap12:operation soapAction="http://tempuri.org/GetDisburseValueDates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ValueDateServiceHttpGet" type="tns:ValueDateServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetPaymentMinimumValueDate">
+      <http:operation location="/GetPaymentMinimumValueDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratePaymentValueDates">
+      <http:operation location="/GetGeneratePaymentValueDates" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeneratePaymentValueDates">
+      <http:operation location="/GeneratePaymentValueDates" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementTransmissionDate">
+      <http:operation location="/GetSettlementTransmissionDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrderValueDate">
+      <http:operation location="/ValidateOrderValueDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReleaseDateFromValueDate">
+      <http:operation location="/GetReleaseDateFromValueDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ValueDateServiceHttpPost" type="tns:ValueDateServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetPaymentMinimumValueDate">
+      <http:operation location="/GetPaymentMinimumValueDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGeneratePaymentValueDates">
+      <http:operation location="/GetGeneratePaymentValueDates" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeneratePaymentValueDates">
+      <http:operation location="/GeneratePaymentValueDates" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSettlementTransmissionDate">
+      <http:operation location="/GetSettlementTransmissionDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateOrderValueDate">
+      <http:operation location="/ValidateOrderValueDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReleaseDateFromValueDate">
+      <http:operation location="/GetReleaseDateFromValueDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ValueDateService">
+    <wsdl:port name="ValueDateServiceSoap" binding="tns:ValueDateServiceSoap">
+      <soap:address location="http://dt6com.cctdev.com:221/ValueDateService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ValueDateServiceSoap12" binding="tns:ValueDateServiceSoap12">
+      <soap12:address location="http://dt6com.cctdev.com:221/ValueDateService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ValueDateServiceHttpGet" binding="tns:ValueDateServiceHttpGet">
+      <http:address location="http://dt6com.cctdev.com:221/ValueDateService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ValueDateServiceHttpPost" binding="tns:ValueDateServiceHttpPost">
+      <http:address location="http://dt6com.cctdev.com:221/ValueDateService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

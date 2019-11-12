@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://dt6com.cctdev.com:221/ValueDateService.asmx?wsdl" docRef="http://dt6com.cctdev.com:221/ValueDateService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://dt6com.cctdev.com:221/ValueDateService.asmx" xmlns:q1="http://tempuri.org/" binding="q1:ValueDateServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://dt6com.cctdev.com:221/ValueDateService.asmx" xmlns:q2="http://tempuri.org/" binding="q2:ValueDateServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

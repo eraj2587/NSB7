@@ -1,0 +1,94 @@
+<#
+if (string.IsNullOrEmpty(Namespace)) Namespace=ConnectionStringName;
+if (string.IsNullOrEmpty(RepoName) && !string.IsNullOrEmpty(ConnectionStringName)) RepoName=ConnectionStringName + "DB";
+if (string.IsNullOrEmpty(DBName)) DBName=ConnectionStringName;
+if (string.IsNullOrEmpty(Namespace)) Namespace="PetaPoco";
+if (string.IsNullOrEmpty(RepoName)) RepoName="PetaPocoDB";
+#>
+using System;
+
+namespace <#=Namespace #>
+{
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="<#=DBName#>")]
+	public partial class <#=RepoName#> : StaticDataDatabase
+	{
+		public override string Name { get { return "<#=DBName#>"; } }
+
+		public <#=RepoName#>() : base() 
+		{ 
+<# foreach(Table tbl in from t in tables where !t.Ignore select t) { #>
+			Tables.Add("<#=tbl.Name#>", new <#=tbl.ClassName#>());
+<# } //foreach table #>
+
+			InsertStaticData();
+		}
+
+<# foreach(Table tbl in from t in tables where !t.Ignore select t) { #>
+		public System.Data.Linq.Table<<#=tbl.ClassName #>.<#=tbl.ClassName #>Row> <#=tbl.ClassName #>Table
+		{
+			get
+			{
+				return this.GetTable<<#=tbl.ClassName #>.<#=tbl.ClassName #>Row>();
+			}
+		}
+<# } //foreach table #>
+
+<#
+foreach(Table tbl in from t in tables where !t.Ignore select t)
+{
+#>
+		public partial class <#=tbl.ClassName#> : StaticDataTable
+		{
+			public override string Name { get { return "<#=tbl.Name#>"; } }
+			public override Type RowType { get { return typeof(<#=tbl.ClassName#>Row); } }
+
+			public <#=tbl.ClassName#>() : base() 
+			{ 
+<#if (tbl.IsLookupTable) { #>
+				//Count: <#=tbl.LookupData.Count()#>
+<# foreach(var row in tbl.LookupData) { #>
+				this.AddRow(new <#=tbl.ClassName#>Row 
+					{	
+<#  foreach(var col in tbl.Columns) { #>
+						<#=col.PropertyName#> = <#=ValueToString(row.First(pair => pair.Key == col))#>,
+<#  }#>
+					});
+<# }#>
+<#}#>
+			}
+
+			[global::System.Data.Linq.Mapping.TableAttribute(Name="<#if (IncludeSchemaInTableName){#> <#=tbl.Schema#>.<#}#><#=tbl.Name#>")]
+			public partial class <#=tbl.ClassName#>Row : StaticDataRow
+			{
+
+<#
+foreach(Column col in tbl.Columns.Where(c => !c.Ignore))
+{
+		// Column bindings
+#>
+				[global::System.Data.Linq.Mapping.ColumnAttribute(DbType="<#=col.SQLColType#>", CanBeNull=<#=col.IsNullable.ToString().ToLower()#><#if (col.IsPK) {#>, IsPrimaryKey=true<#}#>)]
+				public <#=col.PropertyType #><#=CheckNullable(col)#> <#=col.PropertyName #>
+				{ 
+					get
+					{
+						if (!ColsAndValues.ContainsKey("<#=col.PropertyName #>") || ColsAndValues["<#=col.PropertyName #>"] == ValueContainer.Null)
+							return default(<#=col.PropertyType #><#=CheckNullable(col)#>);
+
+						return (<#=col.PropertyType #><#=CheckNullable(col)#>)ColsAndValues["<#=col.PropertyName #>"].Value;
+					}
+					set
+					{
+						var newValue = (default(<#=col.PropertyType #><#=CheckNullable(col)#>) != value) ? new ValueContainer { Type = value.GetType(), Value = value } : ValueContainer.Null;
+
+						if (!ColsAndValues.ContainsKey("<#=col.PropertyName #>"))
+							ColsAndValues.Add("<#=col.PropertyName #>", newValue);
+						else
+							ColsAndValues["<#=col.PropertyName #>"] = newValue;
+					}
+				}
+<# } //foreach column #>
+			} //end row
+		} //end table
+<# } //foreach table #>
+	}
+}
