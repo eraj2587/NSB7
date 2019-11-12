@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using System.Threading.Tasks;
 using NServiceBus;
 using WUBS.Contracts.Commands;
 using WUBS.Infrastructure.Messaging;
@@ -14,11 +15,10 @@ namespace WUBS.Endpoints.Server
             _instance = instance;
         }
 
-
         [OperationBehavior(TransactionScopeRequired = true)]
-        public string Foo()
+        public async Task<string> Foo()
         {
-            _instance.SendCommand<CreatePaymentForTestingCommand>(x => { x.PaymentId = 123; });
+            await _instance.Send<CreatePaymentForTestingCommand>(x => { x.PaymentId = 123; }).ConfigureAwait(false);
             Logger.Info("CreatePaymentForTestingCommand send for value 123");
             return "bar";
         }
@@ -29,6 +29,6 @@ namespace WUBS.Endpoints.Server
     {
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]
-        string Foo();
+        Task<string> Foo();
     }
 }

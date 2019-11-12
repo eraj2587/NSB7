@@ -12,7 +12,7 @@ namespace WUBS.Endpoints.Client
         public async Task Handle(CreatePaymentForTestingCommand message, IMessageHandlerContext context)
         {
             Logger.Info("Command received with payment id : " + message.PaymentId);
-            await context.PublishEventAsync<IPaymentCreatedForTesting>(x => { x.PaymentId = message.PaymentId; });
+            await context.Publish<IPaymentCreatedForTesting>(x => { x.PaymentId = message.PaymentId; });
             Logger.Info("Published event with payment id : " + message.PaymentId);
         }
     }

@@ -104,7 +104,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Endpoints\SendAndProcessEndpoint.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="Features\EndpointInstanceFeature.cs" />
     <Compile Include="IHandleErrorsForMessages.cs" />
     <Compile Include="IHandleOneTimeStartupAndShutdown.cs" />
