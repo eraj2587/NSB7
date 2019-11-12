@@ -1,8 +1,0 @@
-C:\Rajaram\GIT\WUBS_SharedDev\WUBS2\src\Utilities\WUBS.Cct.Treasury\bin\Debug\WUBS.Cct.Treasury.dll.config
-C:\Rajaram\GIT\WUBS_SharedDev\WUBS2\src\Utilities\WUBS.Cct.Treasury\bin\Debug\WUBS.Cct.Treasury.dll
-C:\Rajaram\GIT\WUBS_SharedDev\WUBS2\src\Utilities\WUBS.Cct.Treasury\bin\Debug\WUBS.Cct.Treasury.pdb
-C:\Rajaram\GIT\WUBS_SharedDev\WUBS2\src\Utilities\WUBS.Cct.Treasury\bin\Debug\Newtonsoft.Json.dll
-C:\Rajaram\GIT\WUBS_SharedDev\WUBS2\src\Utilities\WUBS.Cct.Treasury\bin\Debug\Newtonsoft.Json.xml
-C:\Rajaram\GIT\WUBS_SharedDev\WUBS2\src\Utilities\WUBS.Cct.Treasury\obj\Debug\WUBS.Cct.Treasury.dll
-C:\Rajaram\GIT\WUBS_SharedDev\WUBS2\src\Utilities\WUBS.Cct.Treasury\obj\Debug\WUBS.Cct.Treasury.pdb
-C:\Rajaram\GIT\WUBS_SharedDev\WUBS2\src\Utilities\WUBS.Cct.Treasury\obj\Debug\WUBS.Cct.Treasury.csprojResolveAssemblyReference.cache
