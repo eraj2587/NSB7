@@ -55,21 +55,9 @@ namespace WUBS.Utilities.Common
 		}
 
 		public static string ReadContents(string fileName)
-		{
-			FileInfo file;
-			string line;
-			string ediText = "";
-
-			file = new FileInfo(fileName);
-			//if (file.Exists)
-			//{
-			using (StreamReader sr = file.OpenText())
-			{
-				while ((line = sr.ReadLine()) != null) { ediText = string.Format("{0}{1}", ediText, line); }
-			}
-			//}
-
-			return ediText;
+        {
+            if (!File.Exists(fileName)) return string.Empty;
+            return File.ReadAllText(fileName);
 		}
 
         public static List<string> ExtractString(string value, char delimeter)
