@@ -73,7 +73,7 @@
       <Project>{29d073cb-b200-4981-add2-e5c9104169a4}</Project>
       <Name>WUBS.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WUBS.Infrastructure\WUBS.Infrastructure.Messaging.csproj">
+    <ProjectReference Include="..\WUBS.Infrastructure.Messaging\WUBS.Infrastructure.Messaging.csproj">
       <Project>{57fe38a5-43bd-426a-af6d-aee026828f41}</Project>
       <Name>WUBS.Infrastructure.Messaging</Name>
     </ProjectReference>
