@@ -82,7 +82,7 @@ namespace WUBS.Infrastructure.Messaging
 
             Data.TimeoutIdentifier = timeoutMessage.Identifier;
 
-            return RequestTimeout<ScheduledTaskTimeout>(context,DateTime.Now, timeoutMessage);
+            return RequestTimeout<ScheduledTaskTimeout>(context,DateTime.UtcNow, timeoutMessage);
         }
 
         public Task Handle(StopScheduledTask message, IMessageHandlerContext context)
@@ -128,7 +128,7 @@ namespace WUBS.Infrastructure.Messaging
             Data.TimeoutIdentifier = timeout.Identifier;
 
            return RequestTimeout(context,
-                noWait ? DateTime.Now : DateTime.Now.AddSeconds(Data.WaitDuration.TotalSeconds),
+                noWait ? DateTime.UtcNow : DateTime.UtcNow.AddSeconds(Data.WaitDuration.TotalSeconds),
                 timeout);
         }
 

@@ -86,7 +86,8 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts.Pricing
 
         public ContractPricingComponent()
         {
-            StartEndDates = new DateRange(DateTime.Now, DateTime.Now);
+            var now = DateTime.UtcNow;
+            StartEndDates = new DateRange(now, now);
             CostSpotRate = Rate.NullRate;
             CustomerSpotRate = Rate.NullRate;
         }

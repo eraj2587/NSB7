@@ -45,7 +45,7 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts.Time
 
 		public static Date Today
 		{
-			get { return new Date(DateTime.Now); }	
+			get { return new Date(DateTime.UtcNow); }	
 		}
 
 		public Date AddDays(int days)

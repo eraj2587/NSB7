@@ -35,7 +35,7 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts
                 ContractId = Id,
                 BookingDate = BookingDate,
                 PricingComponent = PricingComponent,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 BookingPersonId = BookingPersonId,
                 ForwardContractId = ParentContract.Id,
             });

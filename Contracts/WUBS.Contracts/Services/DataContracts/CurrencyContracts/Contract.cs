@@ -142,7 +142,7 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts
             {
                 Id = Guid.NewGuid(),
                 ContractId = Id,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.UtcNow
             });
         }
 

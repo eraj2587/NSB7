@@ -36,7 +36,7 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts
                 Id = Guid.NewGuid(),
                 ContractId = Id,
                 BookingDate = BookingDate,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 BookingPersonId = BookingPersonId,
                 PricingComponent = PricingComponent
             });

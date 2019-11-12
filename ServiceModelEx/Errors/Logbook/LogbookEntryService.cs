@@ -34,8 +34,8 @@ namespace ServiceModelEx
          LineNumber = lineNumber;
          TypeName = typeName;
          MemberAccessed = methodName;
-         Date = DateTime.Now.ToShortDateString();
-         Time = DateTime.Now.ToLongTimeString();
+         Date = DateTime.UtcNow.ToShortDateString();
+         Time = DateTime.UtcNow.ToLongTimeString();
          ExceptionName = exceptionName;
          ExceptionMessage = exceptionMessage;
          ProvidedFault = providedFault;

@@ -56,7 +56,7 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts
                 Id = Guid.NewGuid(),
                 ContractId = Id,
                 BookingDate = BookingDate,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 BookingPersonId = BookingPersonId,
                 OptionLeg =  OptionLeg,
                 OptionContractId =  OptionContractId,
@@ -74,7 +74,7 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts
             {
                 Id = Guid.NewGuid(),
                 ContractId = Id,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 NewPricingComponent = PricingComponent
             });
         }
@@ -87,7 +87,7 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts
             {
                 Id = Guid.NewGuid(),
                 ContractId = Id,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 NewPricingComponent = PricingComponent
             });
         }
@@ -101,7 +101,7 @@ namespace WUBS.Contracts.Services.DataContracts.CurrencyContracts
                 Id = Guid.NewGuid(),
                 ContractId = Id,
                 NewPricingComponent = PricingComponent,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 IsAggregated = IsAggregated,
             });
         }
