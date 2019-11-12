@@ -14,3 +14,8 @@
 /WUBS.Infrastructure.Messaging/obj
 /WUBS.Infrastructure.WCF/obj/Release
 /WUBS.Infrastructure.WCF/obj/Debug
+
+
+bin
+obj
+packages
