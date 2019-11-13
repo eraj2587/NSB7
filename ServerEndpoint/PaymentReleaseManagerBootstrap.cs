@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NServiceBus;
+using NServiceBus.UniformSession;
 using WUBS.Contracts.Commands;
 using WUBS.Infrastructure.Messaging;
 
@@ -7,16 +8,23 @@ namespace WUBS.Endpoints.Server
 {
     public class PaymentReleaseManagerBootstrap : AbstractService, IHandleOneTimeStartupAndShutdown
     {
-        private IEndpointInstance instance;
+        //private IEndpointInstance instance;
 
-        public PaymentReleaseManagerBootstrap(IEndpointInstance _instance)
+        //public PaymentReleaseManagerBootstrap(IEndpointInstance _instance)
+        //{
+        //    instance = _instance;
+        //}
+
+        IUniformSession _session;
+
+        public PaymentReleaseManagerBootstrap(IUniformSession session)
         {
-            instance = _instance;
+            _session = session;
         }
 
         public Task Startup()
         {
-           // instance.Send(new CreatePaymentForTestingCommand()).ConfigureAwait(false);
+            _session.Send(new CreatePaymentForTestingCommand()).ConfigureAwait(false);
             //Set release schedules
            // Bus.SendLocal(new StartPaymentReleaseSaga { TaskName = "ReleasePaymentSaga" });
             return Task.CompletedTask;

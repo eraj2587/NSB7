@@ -76,11 +76,11 @@ namespace WUBS.Infrastructure.Endpoints
             try
             {
                 //wire up IEndpointInstance
-                var session = _endpoint.GetEndpointInstance();
-                _builder.RegisterInstance(session)
-                    .PropertiesAutowired()
-                    .SingleInstance()
-                    .As<IEndpointInstance>();
+                //var session = _endpoint.GetEndpointInstance();
+                //_builder.RegisterInstance(session)
+                //    .PropertiesAutowired()
+                //    .SingleInstance()
+                //    .As<IEndpointInstance>();
 
                 //using (var scope = _container.BeginLifetimeScope(builder=>
                 //{

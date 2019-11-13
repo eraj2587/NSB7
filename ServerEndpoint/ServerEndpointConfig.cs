@@ -59,7 +59,11 @@ namespace ServerEndpoint
         {
            return base.GetEndpointContainer();
         }
-       
+
+        protected override void SetMaximumConcurrencyLevel(EndpointConfiguration config)
+        {
+            config.LimitMessageProcessingConcurrencyTo(10);
+        }
 
         #endregion
     }

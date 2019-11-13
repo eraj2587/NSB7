@@ -401,7 +401,6 @@
     <Compile Include="Services\IOrderCaptureManager.cs" />
     <Compile Include="Services\IComplianceQuery.cs" />
     <Compile Include="Services\IPaymentBatchQuery.cs" />
-    <Compile Include="Services\IPaymentManager.cs" />
     <Compile Include="Services\IOrderQuery.cs" />
     <Compile Include="Services\IPaymentQuery.cs" />
     <Compile Include="Services\IPaymentReleaseRulesAdapter.cs" />

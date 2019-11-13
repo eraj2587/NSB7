@@ -61,9 +61,12 @@ namespace WUBS.Infrastructure.Messaging.Configurations
                 endpointConfiguration.SendOnly();
 
             builder = GetContainerBuilder();
-            IEndpointInstance endpoint = null;
-
-            builder.Register(x => endpoint).As<IEndpointInstance>().SingleInstance();
+            IEndpointInstance endpoint;
+            builder.Register(x => Endpoint.Start(endpointConfiguration)
+                   .ConfigureAwait(false).GetAwaiter().GetResult()
+               )
+               .As<IEndpointInstance>()
+               .SingleInstance();
 
             _container = builder.Build();
 
@@ -125,8 +128,11 @@ namespace WUBS.Infrastructure.Messaging.Configurations
                 .DefiningMessagesAs(DefineMessageTypes());
 
             //Set max concurrency;
-            endpointConfiguration.LimitMessageProcessingConcurrencyTo(25);
-            
+            SetMaximumConcurrencyLevel(endpointConfiguration);
+
+            //Enable uniform session
+            endpointConfiguration.EnableUniformSession();
+
             //Set retry
             var recoverability = endpointConfiguration.Recoverability();
             //immediate
@@ -172,7 +178,7 @@ namespace WUBS.Infrastructure.Messaging.Configurations
             {
                 endpointConfiguration.AuditSagaStateChanges(serviceControlQueue: "particular.servicecontrol@machine");
             }
-          
+
             // Set up logging
             var logConfiguration = LogConfiguration.ReadFromConfigurationWithDefaultValues();
             logConfiguration.LogFileName = _configEndpointName;
@@ -194,9 +200,14 @@ namespace WUBS.Infrastructure.Messaging.Configurations
 
         #region Protected Methods
 
+        protected virtual void SetMaximumConcurrencyLevel(EndpointConfiguration config)
+        {
+            config.LimitMessageProcessingConcurrencyTo(25);
+        }
+
         public virtual IContainer GetEndpointContainer()
         {
-          return _container;
+            return _container;
         }
 
         protected virtual Func<Type, bool> DefineMessageTypes()

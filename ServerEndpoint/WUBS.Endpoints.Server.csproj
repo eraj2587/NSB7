@@ -50,6 +50,9 @@
     <Reference Include="NServiceBus.Transport.SqlServer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.SqlServer.4.3.0\lib\net452\NServiceBus.Transport.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="NServiceBus.UniformSession, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.UniformSession.2.1.0\lib\net461\NServiceBus.UniformSession.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -87,13 +90,13 @@
       <Project>{0858C710-AF53-4049-B98E-CFE3638D1228}</Project>
       <Name>ServiceModelEx</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WUBS.Infrastructure.Messaging\WUBS.Infrastructure.Messaging.csproj">
+      <Project>{57fe38a5-43bd-426a-af6d-aee026828f41}</Project>
+      <Name>WUBS.Infrastructure.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WUBS.Infrastructure.WCF\WUBS.Infrastructure.WCF.csproj">
       <Project>{26463f8a-5c60-4456-b1f3-180ead687c6a}</Project>
       <Name>WUBS.Infrastructure.WCF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WUBS.Infrastructure\WUBS.Infrastructure.Messaging.csproj">
-      <Project>{57fe38a5-43bd-426a-af6d-aee026828f41}</Project>
-      <Name>WUBS.Infrastructure.Messaging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 ﻿using System.ServiceModel;
+using System.Threading.Tasks;
 using NServiceBus;
+using NServiceBus.UniformSession;
 using WUBS.Contracts.Commands;
 using WUBS.Infrastructure.Messaging;
 
@@ -7,18 +9,25 @@ namespace WUBS.Endpoints.Server
 {
     public class PaymentManager : AbstractService, IPaymentManager
     {
-        private IEndpointInstance _instance;
+        //private IEndpointInstance _instance;
 
-        public PaymentManager(IEndpointInstance instance)
+        IUniformSession _session;
+
+        //public PaymentManager(IEndpointInstance instance)
+        //{
+        //    _instance = instance;
+        //}
+
+        public PaymentManager(IUniformSession session)
         {
-            _instance = instance;
+            _session = session;
         }
 
 
         [OperationBehavior(TransactionScopeRequired = true)]
-        public string Foo()
+        public async Task<string> Foo()
         {
-            _instance.SendCommand<CreatePaymentForTestingCommand>(x => { x.PaymentId = 123; });
+            await _session.Send<CreatePaymentForTestingCommand>(x => { x.PaymentId = 123; }).ConfigureAwait(false);
             Logger.Info("CreatePaymentForTestingCommand send for value 123");
             return "bar";
         }
@@ -29,6 +38,6 @@ namespace WUBS.Endpoints.Server
     {
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]
-        string Foo();
+        Task<string> Foo();
     }
 }

@@ -14,3 +14,12 @@
 /WUBS.Infrastructure.Messaging/obj
 /WUBS.Infrastructure.WCF/obj/Release
 /WUBS.Infrastructure.WCF/obj/Debug
+/ClientEndpoint/bin/Debug
+/Contracts/WUBS.Contracts/bin/Debug
+/packages
+/ServerEndpoint/bin/Debug
+/ServiceModelEx/bin/Debug
+/Utilities/WUBS.Utilities.Common/bin/Debug
+/WUBS.Infrastructure.Logging/bin/Debug
+/WUBS.Infrastructure.Messaging/bin/Debug
+/WUBS.Infrastructure.WCF/bin/Debug

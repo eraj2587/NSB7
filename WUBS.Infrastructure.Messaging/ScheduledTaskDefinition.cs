@@ -8,27 +8,34 @@ using System.Transactions;
 using WUBS.Contracts.Commands;
 using WUBS.Infrastructure.Messaging.Messages;
 using Autofac;
+using NServiceBus.UniformSession;
 
 namespace WUBS.Infrastructure.Messaging
 {
     public abstract class ScheduledTaskDefinition : IScheduledTask, IHandleOneTimeStartupAndShutdown
     {
-        IEndpointInstance instance;
-        public ScheduledTaskDefinition(IEndpointInstance instance)
+        //IEndpointInstance instance;
+        //public ScheduledTaskDefinition(IEndpointInstance instance)
+        //{
+        //    this.instance = instance;
+        //}
+
+        IUniformSession _session;
+        public ScheduledTaskDefinition(IUniformSession session) 
         {
-            this.instance = instance;
+            _session = session;
         }
 
         public Task Startup()
         {
             if (IsEnabled)
-                 instance.SendLocal(new BeginScheduledTask
+                _session.SendLocal(new BeginScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName,
                     WaitDuration = WaitDuration
                 }).ConfigureAwait(false).GetAwaiter().GetResult();
             else
-                 instance.SendLocal(new StopScheduledTask
+                _session.SendLocal(new StopScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName
                 }).ConfigureAwait(false).GetAwaiter().GetResult();
