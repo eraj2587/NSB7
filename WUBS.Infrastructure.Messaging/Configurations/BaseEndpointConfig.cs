@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using WUBS.Infrastructure.Logging;
 using Environment = NHibernate.Cfg.Environment;
 
@@ -63,12 +64,8 @@ namespace WUBS.Infrastructure.Messaging.Configurations
             builder = GetContainerBuilder();
 
             // Variation on https://docs.particular.net/samples/dependency-injection/autofac/
-            builder.Register(x => Endpoint.Start(endpointConfiguration)
-                    .ConfigureAwait(false)
-                    .GetAwaiter()
-                    .GetResult()
-                )
-                .As<IEndpointInstance>()
+            builder.Register(x => Endpoint.Start(endpointConfiguration))
+                .As<Task<IEndpointInstance>>()
                 .SingleInstance();
 
             _container = builder.Build();

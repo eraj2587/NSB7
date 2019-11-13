@@ -40,7 +40,7 @@ namespace WUBS.Infrastructure.Endpoints
 
         protected override void OnStop()
         {
-            _endpoint?.StopEndpoint();
+            _endpoint?.StopEndpoint().GetAwaiter().GetResult();
             PerformOnStopOperations();
         }
 

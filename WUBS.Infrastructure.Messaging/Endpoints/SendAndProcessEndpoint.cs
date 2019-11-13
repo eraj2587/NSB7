@@ -48,13 +48,13 @@ namespace WUBS.Infrastructure.Messaging.Endpoints
         {
             // Resolve via container, afterall, why register it?
             var container = _endPointConfig.GetEndpointContainer();
-            _endpointInstance = container.Resolve<IEndpointInstance>();
+            _endpointInstance = await container.Resolve<Task<IEndpointInstance>>().ConfigureAwait(false);
         }
 
-        public virtual void StopEndpoint()
+        public virtual async Task StopEndpoint()
         {
             if (_endpointInstance != null)
-                _endpointInstance.Stop().GetAwaiter().GetResult();
+                await _endpointInstance.Stop().ConfigureAwait(false);
         }
 
         public virtual async Task SendMessage(object message)
