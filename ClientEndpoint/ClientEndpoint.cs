@@ -28,6 +28,10 @@ namespace ClientEndpoint
                 // to run interactive from a console or as a windows service
                 if (Environment.UserInteractive)
                 {
+                    var ad = AppDomain.CurrentDomain;
+                    ad.FirstChanceException += (s, ea) => Console.WriteLine($"FirstChanceException {ea.Exception}");
+                    ad.UnhandledException += (s, ea) =>  Console.WriteLine($"UnhandledException {ea.ExceptionObject}");
+
                     Console.Title = "WUBS.Endpoint.Client";
                     Console.CancelKeyPress += (sender, e) => { service.OnStop(); };
                     service.OnStart(null);
