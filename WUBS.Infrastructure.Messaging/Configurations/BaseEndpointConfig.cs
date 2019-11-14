@@ -71,6 +71,7 @@ namespace WUBS.Infrastructure.Messaging.Configurations
             _container = builder.Build();
 
             endpointConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(_container));
+            endpointConfiguration.EnableUniformSession();
 
             endpointConfiguration.SendFailedMessagesTo(GetErrorQueueName());
             endpointConfiguration.AuditProcessedMessagesTo(GetAuditQueueName());
@@ -374,7 +375,9 @@ namespace WUBS.Infrastructure.Messaging.Configurations
         protected TransportMode GetTransportMode()
         {
             var cKey = "Transport.Mode";
-            var cfg = ConfigurationManager.AppSettings[cKey] ?? "Database";
+            var cfg = ConfigurationManager.AppSettings[cKey];
+
+            if(string.IsNullOrEmpty(cfg)) throw new InvalidOperationException(cfg);
 
             return cfg.ToLower() == "localfile" ? TransportMode.LocalFile : TransportMode.Database;
         }
@@ -384,6 +387,7 @@ namespace WUBS.Infrastructure.Messaging.Configurations
             var cKey = "Transport.LocalFile.Path";
             var cfg = ConfigurationManager.AppSettings[cKey] ?? string.Empty;
 
+            cfg = System.Environment.ExpandEnvironmentVariables(cfg);
             if (string.IsNullOrEmpty(cfg))
                 throw new ArgumentNullException(
                     "Transport.LocalFile.Path cannot be null or empty in the endpoint config file");
