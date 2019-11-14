@@ -76,6 +76,9 @@
     <Reference Include="NServiceBus.Transport.SqlServer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.SqlServer.4.3.0\lib\net452\NServiceBus.Transport.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="NServiceBus.UniformSession, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.UniformSession.2.1.0\lib\net461\NServiceBus.UniformSession.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
