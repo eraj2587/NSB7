@@ -65,11 +65,10 @@
     <Compile Include="Installer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SampleScheduledTask.cs" />
-    <Compile Include="PaymentCreatedForTestingHandler.cs" />
     <Compile Include="PaymentManager.cs" />
+    <Compile Include="PaymentReleaseBootstrap.cs" />
+    <Compile Include="PaymentCreatedForTestingHandler.cs" />
     <Compile Include="PaymentManagerAuthorizer.cs" />
-    <Compile Include="PaymentReleaseManagerBootstrap.cs" />
     <Compile Include="PaymentService.cs" />
     <Compile Include="ServerEndpoint.cs">
       <SubType>Component</SubType>

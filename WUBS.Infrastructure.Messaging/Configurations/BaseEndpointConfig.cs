@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using WUBS.Infrastructure.Logging;
 using Environment = NHibernate.Cfg.Environment;
 
@@ -25,7 +26,7 @@ namespace WUBS.Infrastructure.Messaging.Configurations
         internal string _configEndpointName;
 
         protected bool _isSendOnly;
-
+        IEndpointInstance endpoint;
         private readonly TypeScanner typeScanner;
 
         private IContainer _container;
@@ -61,18 +62,15 @@ namespace WUBS.Infrastructure.Messaging.Configurations
                 endpointConfiguration.SendOnly();
 
             builder = GetContainerBuilder();
-            IEndpointInstance endpoint;
-            builder.Register(x => Endpoint.Start(endpointConfiguration)
-                   .ConfigureAwait(false).GetAwaiter().GetResult()
-               )
-               .As<IEndpointInstance>()
-               .SingleInstance();
+
+            // Variation on https://docs.particular.net/samples/dependency-injection/autofac/
+            builder.Register(x => Endpoint.Start(endpointConfiguration))
+                .As<Task<IEndpointInstance>>()
+                .SingleInstance();
 
             _container = builder.Build();
 
             endpointConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(_container));
-
-
 
             endpointConfiguration.SendFailedMessagesTo(GetErrorQueueName());
             endpointConfiguration.AuditProcessedMessagesTo(GetAuditQueueName());
@@ -128,10 +126,7 @@ namespace WUBS.Infrastructure.Messaging.Configurations
                 .DefiningMessagesAs(DefineMessageTypes());
 
             //Set max concurrency;
-            SetMaximumConcurrencyLevel(endpointConfiguration);
-
-            //Enable uniform session
-            endpointConfiguration.EnableUniformSession();
+            endpointConfiguration.LimitMessageProcessingConcurrencyTo(25);
 
             //Set retry
             var recoverability = endpointConfiguration.Recoverability();
@@ -199,11 +194,6 @@ namespace WUBS.Infrastructure.Messaging.Configurations
         #endregion
 
         #region Protected Methods
-
-        protected virtual void SetMaximumConcurrencyLevel(EndpointConfiguration config)
-        {
-            config.LimitMessageProcessingConcurrencyTo(25);
-        }
 
         public virtual IContainer GetEndpointContainer()
         {

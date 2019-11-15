@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NServiceBus;
+using WUBS.Contracts.Commands;
 using WUBS.Infrastructure.Messaging;
 using WUBS.Infrastructure.Messaging.Messages;
 
@@ -14,6 +15,11 @@ namespace WUBS.Endpoints.Server
         public class PaymentReleaseManagerBootstrap :  IHandleOneTimeStartupAndShutdown
         {
             private IEndpointInstance instance;
+
+            public PaymentReleaseManagerBootstrap(IEndpointInstance _instance)
+            {
+                instance = _instance;
+            }
             public Task Startup()
             {
                 //Set release schedules

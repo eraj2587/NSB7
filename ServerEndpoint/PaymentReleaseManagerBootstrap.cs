@@ -8,23 +8,23 @@ namespace WUBS.Endpoints.Server
 {
     public class PaymentReleaseManagerBootstrap : AbstractService, IHandleOneTimeStartupAndShutdown
     {
-        //private IEndpointInstance instance;
+        private IEndpointInstance instance;
 
-        //public PaymentReleaseManagerBootstrap(IEndpointInstance _instance)
-        //{
-        //    instance = _instance;
-        //}
-
-        IUniformSession _session;
-
-        public PaymentReleaseManagerBootstrap(IUniformSession session)
+        public PaymentReleaseManagerBootstrap(IEndpointInstance _instance)
         {
-            _session = session;
+            instance = _instance;
         }
+
+        //IUniformSession _session;
+
+        //public PaymentReleaseManagerBootstrap(IUniformSession session)
+        //{
+        //    _session = session;
+        //}
 
         public Task Startup()
         {
-            _session.Send(new CreatePaymentForTestingCommand()).ConfigureAwait(false);
+            instance.Send(new CreatePaymentForTestingCommand()).ConfigureAwait(false);
             //Set release schedules
            // Bus.SendLocal(new StartPaymentReleaseSaga { TaskName = "ReleasePaymentSaga" });
             return Task.CompletedTask;

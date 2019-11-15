@@ -9,25 +9,25 @@ namespace WUBS.Endpoints.Server
 {
     public class PaymentManager : AbstractService, IPaymentManager
     {
-        //private IEndpointInstance _instance;
+        //IEndpointInstance _instance;
 
-        IUniformSession _session;
+        ////IUniformSession _session;
 
         //public PaymentManager(IEndpointInstance instance)
         //{
         //    _instance = instance;
         //}
 
-        public PaymentManager(IUniformSession session)
-        {
-            _session = session;
-        }
+        //public PaymentManager(IUniformSession session)
+        //{
+        //    _session = session;
+        //}
 
 
         [OperationBehavior(TransactionScopeRequired = true)]
         public async Task<string> Foo()
         {
-            await _session.Send<CreatePaymentForTestingCommand>(x => { x.PaymentId = 123; }).ConfigureAwait(false);
+           // await _instance.Send<CreatePaymentForTestingCommand>(x => { x.PaymentId = 123; }).ConfigureAwait(false);
             Logger.Info("CreatePaymentForTestingCommand send for value 123");
             return "bar";
         }

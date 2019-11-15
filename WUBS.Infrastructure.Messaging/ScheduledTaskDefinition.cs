@@ -14,28 +14,28 @@ namespace WUBS.Infrastructure.Messaging
 {
     public abstract class ScheduledTaskDefinition : IScheduledTask, IHandleOneTimeStartupAndShutdown
     {
-        //IEndpointInstance instance;
-        //public ScheduledTaskDefinition(IEndpointInstance instance)
-        //{
-        //    this.instance = instance;
-        //}
-
-        IUniformSession _session;
-        public ScheduledTaskDefinition(IUniformSession session) 
+        IEndpointInstance instance;
+        public ScheduledTaskDefinition(IEndpointInstance instance)
         {
-            _session = session;
+            this.instance = instance;
         }
+
+        //IUniformSession _session;
+        //public ScheduledTaskDefinition(IUniformSession session) 
+        //{
+        //    _session = session;
+        //}
 
         public Task Startup()
         {
             if (IsEnabled)
-                _session.SendLocal(new BeginScheduledTask
+                instance.SendLocal(new BeginScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName,
                     WaitDuration = WaitDuration
                 }).ConfigureAwait(false).GetAwaiter().GetResult();
             else
-                _session.SendLocal(new StopScheduledTask
+                instance.SendLocal(new StopScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName
                 }).ConfigureAwait(false).GetAwaiter().GetResult();
