@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WUBS.Infrastructure.Messaging
 {
@@ -10,38 +11,39 @@ namespace WUBS.Infrastructure.Messaging
         public IEnumerable<IHandleOneTimeStartupAndShutdown> Handlers { get; set; }
         public IContainer Container { get; set; }
 
-        private void InvokeStartup()
+        private async Task InvokeStartup()
         {
             if (Handlers != null && Handlers.Any())
             {
                 foreach (var handler in Handlers)
-                    handler.Startup();
+                    await handler.Startup().ConfigureAwait(false);
             }
         }
 
-        private void InvokeShutdown()
+        private async Task InvokeShutdown()
         {
             if (Handlers != null && Handlers.Any())
             {
                 foreach (var handler in Handlers)
-                    handler.Shutdown();
+                    await handler.Shutdown().ConfigureAwait(false);
             }
         }
 
-        public void Start()
+        public async Task Start()
         {
             Handlers = Container.Resolve<IHandleOneTimeStartupAndShutdown[]>();
-            InvokeStartup();
+            await InvokeStartup().ConfigureAwait(false);
         }
 
-        public void Stop()
+        public async Task Stop()
         {
-            InvokeShutdown();
+            await InvokeShutdown().ConfigureAwait(false);
+            Handlers = null;
         }
 
         public void Dispose()
         {
-            Stop();
+            if (Handlers == null) throw new InvalidOperationException("Stop is not called");
             GC.SuppressFinalize(this);
         }
 

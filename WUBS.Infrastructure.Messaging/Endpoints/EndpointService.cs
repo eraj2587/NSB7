@@ -31,47 +31,53 @@ namespace WUBS.Infrastructure.Endpoints
 
         protected override void OnStart(string[] args)
         {
-            _endpointName = EndpointConfig.GetEndpointName();
-            _builder = EndpointConfig.GetContainerBuilder();
             OnStartAsync().GetAwaiter().GetResult();
-            _container = _endpoint.GetEndpointContainer();
-            PerformStartupOperations();
         }
 
         protected override void OnStop()
         {
-            _endpoint?.StopEndpoint().GetAwaiter().GetResult();
-            PerformOnStopOperations();
+            OnStopAsync().GetAwaiter().GetResult();
         }
+
+        protected async Task OnStopAsync()
+        {
+            if (_endpoint != null) await _endpoint.StopEndpoint().ConfigureAwait(false);
+            await PerformOnStopOperations().ConfigureAwait(false);
+        }
+
 
         public SendAndProcessEndpoint<BaseEndpointConfig> GetEndpoint()
         {
             return _endpoint;
         }
 
-        protected async Task OnStartAsync()
+        async Task OnStartAsync()
         {
+            _endpointName = EndpointConfig.GetEndpointName();
+            _builder = EndpointConfig.GetContainerBuilder();
+
             try
             {
                 _endpoint = new SendAndProcessEndpoint<BaseEndpointConfig>(EndpointConfig);
                 _endpoint.Initialize();
-               
-                
 
-                await _endpoint.StartEndpoint();
+                await _endpoint.StartEndpoint().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 //TODO: Log Exception
-                Environment.FailFast("Failed to start " + _endpointName + " Endpoint." + ex.GetBaseException()+ex);
+                Environment.FailFast("Failed to start " + _endpointName + " Endpoint." + ex.GetBaseException() + ex);
             }
+
+            _container = _endpoint.GetEndpointContainer();
+            await PerformStartupOperations().ConfigureAwait(false);
         }
 
         #endregion
 
         #region Private Methods
 
-        private void PerformStartupOperations()
+        private async Task PerformStartupOperations()
         {
             try
             {
@@ -114,20 +120,21 @@ namespace WUBS.Infrastructure.Endpoints
                 {
                     Container = _container
                 };
-                _serviceStartAndShutDownActivator.Start();
+                await _serviceStartAndShutDownActivator.Start().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 //TODO: Log Exception
                 Environment.FailFast(
-                    "Failed to execute PerformStartupOperations() for " + _endpointName +".", ex);
+                    "Failed to execute PerformStartupOperations() for " + _endpointName + ".", ex);
             }
         }
 
-        private void PerformOnStopOperations()
+        private async Task PerformOnStopOperations()
         {
             try
             {
+                await _serviceStartAndShutDownActivator.Stop().ConfigureAwait(false);
                 _serviceHostsActivator.Stop();
             }
             catch (Exception ex)
