@@ -13,26 +13,26 @@ namespace WUBS.Infrastructure.Messaging
 {
     public abstract class ScheduledTaskDefinition : IScheduledTask, IHandleOneTimeStartupAndShutdown
     {
-        IEndpointInstance instance;
+        readonly IEndpointInstance instance;
+
         public ScheduledTaskDefinition(IEndpointInstance instance)
         {
             this.instance = instance;
         }
 
-        public Task Startup()
+        public async Task Startup()
         {
             if (IsEnabled)
-                 instance.SendLocal(new BeginScheduledTask
+                await instance.SendLocal(new BeginScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName,
                     WaitDuration = WaitDuration
-                }).ConfigureAwait(false).GetAwaiter().GetResult();
+                }).ConfigureAwait(false);
             else
-                 instance.SendLocal(new StopScheduledTask
+                await instance.SendLocal(new StopScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName
-                }).ConfigureAwait(false).GetAwaiter().GetResult();
-            return Task.CompletedTask;
+                }).ConfigureAwait(false);
         }
 
         public Task Shutdown()
@@ -55,13 +55,11 @@ namespace WUBS.Infrastructure.Messaging
     {
         private readonly Dictionary<string, IScheduledTask> scheduledTasksByType;
         private readonly ILog logger = LogManager.GetLogger<ScheduledTaskExecutor>();
-        public IContainer Container { get; set; }
 
-        //public ScheduledTaskExecutor()
-        //{
-        //    var scheduledTasks =Container.Resolve<IScheduledTask[]>();
-        //    scheduledTasksByType = scheduledTasks.ToDictionary(t => t.GetType().FullName, t => t);
-        //}
+        public ScheduledTaskExecutor(IScheduledTask[] scheduledTasks)
+        {
+            scheduledTasksByType = scheduledTasks.ToDictionary(t => t.GetType().FullName, t => t);
+        }
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<ScheduledTaskSagaData> mapper)
         {
@@ -72,7 +70,6 @@ namespace WUBS.Infrastructure.Messaging
         public Task Handle(BeginScheduledTask message, IMessageHandlerContext context)
         {
             Data.WaitDuration = message.WaitDuration;
-
             Data.TaskTypeFullName = message.TaskTypeFullName;
 
             var timeoutMessage = new ScheduledTaskTimeout
@@ -82,7 +79,7 @@ namespace WUBS.Infrastructure.Messaging
 
             Data.TimeoutIdentifier = timeoutMessage.Identifier;
 
-            return RequestTimeout<ScheduledTaskTimeout>(context,DateTime.UtcNow, timeoutMessage);
+            return RequestTimeout<ScheduledTaskTimeout>(context, DateTime.UtcNow, timeoutMessage);
         }
 
         public Task Handle(StopScheduledTask message, IMessageHandlerContext context)
@@ -101,7 +98,7 @@ namespace WUBS.Infrastructure.Messaging
             if (null == scheduledTask) { MarkAsComplete(); return Task.CompletedTask; }
 
             //zombie timeout, scheduled task is not enabled to run
-            if (!scheduledTask.IsEnabled) return Task.CompletedTask; 
+            if (!scheduledTask.IsEnabled) return Task.CompletedTask;
 
             var noWait = false;
             try
@@ -127,9 +124,9 @@ namespace WUBS.Infrastructure.Messaging
             };
             Data.TimeoutIdentifier = timeout.Identifier;
 
-           return RequestTimeout(context,
-                noWait ? DateTime.UtcNow : DateTime.UtcNow.AddSeconds(Data.WaitDuration.TotalSeconds),
-                timeout);
+            return RequestTimeout(context,
+                 noWait ? DateTime.UtcNow : DateTime.UtcNow.AddSeconds(Data.WaitDuration.TotalSeconds),
+                 timeout);
         }
 
         private IScheduledTask GetScheduledTask(string taskTypeFullName)
@@ -143,7 +140,6 @@ namespace WUBS.Infrastructure.Messaging
 
     public class ScheduledTaskTimeout
     {
-
         public ScheduledTaskTimeout()
         {
             Identifier = Guid.NewGuid().ToString("N");
@@ -155,7 +151,6 @@ namespace WUBS.Infrastructure.Messaging
     public class ScheduledTaskSagaData : ContainSagaData
     {
         public virtual string TaskTypeFullName { get; set; }
-
         public virtual TimeSpan WaitDuration { get; set; }
         public virtual string TimeoutIdentifier { get; set; }
     }
