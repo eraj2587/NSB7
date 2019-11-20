@@ -22,7 +22,6 @@ namespace WUBS.Infrastructure.Endpoints
         private string _endpointName;
         private ServiceHostsActivator _serviceHostsActivator;
         private StartupAndShutdownActivator _serviceStartAndShutDownActivator;
-        private ContainerBuilder _builder;
         private IContainer _container;
 
         #endregion
@@ -54,7 +53,6 @@ namespace WUBS.Infrastructure.Endpoints
         async Task OnStartAsync()
         {
             _endpointName = EndpointConfig.GetEndpointName();
-            _builder = EndpointConfig.GetContainerBuilder();
 
             try
             {
@@ -81,44 +79,16 @@ namespace WUBS.Infrastructure.Endpoints
         {
             try
             {
-                //wire up IEndpointInstance
-                var session = _endpoint.GetEndpointInstance();
-                _builder.RegisterInstance(session)
-                    .PropertiesAutowired()
-                    .SingleInstance()
-                    .As<IEndpointInstance>();
-
-                //using (var scope = _container.BeginLifetimeScope(builder=>
-                //{
-                //    builder.RegisterInstance(session)
-                //        .PropertiesAutowired()
-                //        .SingleInstance()
-                //        .As<IEndpointInstance>();
-                //    builder.Update(_container);
-                //}
-                //))
-                //{
-                //    // Resolve services from a scope that is a child
-                //    // of the root container.
-                //    var serviceHosts = scope.Resolve<IStartableServiceHost[]>();
-
-                //    foreach (var host in serviceHosts)
-                //    {
-                //        host.Start();
-                //    }
-                //}
-                
-                _container = _builder.Build();
                 //starts wcf host
                 _serviceHostsActivator = new ServiceHostsActivator
                 {
-                    Container = _container
+                    Container = EndpointConfig.GetEndpointContainer()
                 };
                 _serviceHostsActivator.Start();
 
                 _serviceStartAndShutDownActivator = new StartupAndShutdownActivator
                 {
-                    Container = _container
+                    Container = EndpointConfig.GetEndpointContainer()
                 };
                 await _serviceStartAndShutDownActivator.Start().ConfigureAwait(false);
             }
