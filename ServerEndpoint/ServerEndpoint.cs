@@ -22,6 +22,7 @@ namespace ServerEndpoint
 
         private async static Task Main()
         {
+
             using (var service = new ServerEndpoint())
             {
                 // to run interactive from a console or as a windows service
@@ -32,7 +33,9 @@ namespace ServerEndpoint
                     ad.UnhandledException += (s, ea) =>  Console.WriteLine($"UnhandledException {ea.ExceptionObject}");
 
                     Console.Title = "WUBS.Endpoint.Server";
-                    Console.CancelKeyPress += (sender, e) => { service.OnStop(); };
+                    var tcs = new TaskCompletionSource<object>();
+                    Console.CancelKeyPress += (sender, e) => { e.Cancel = true; tcs.SetResult(null); };
+
                     await service.OnStartAsync().ConfigureAwait(false);
 
                     //var endpoint = service.GetEndpoint();
@@ -42,7 +45,7 @@ namespace ServerEndpoint
                     //});
 
                     Console.WriteLine("\r\nPress CTRL+C to stop program\r\n");
-                    Console.Read();
+                    await tcs.Task.ConfigureAwait(false);
                     await service.OnStopAsync().ConfigureAwait(false);
                     return;
                 }
