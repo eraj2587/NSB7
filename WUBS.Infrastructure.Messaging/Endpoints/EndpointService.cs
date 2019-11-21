@@ -22,7 +22,6 @@ namespace WUBS.Infrastructure.Endpoints
         private string _endpointName;
         private ServiceHostsActivator _serviceHostsActivator;
         private StartupAndShutdownActivator _serviceStartAndShutDownActivator;
-        private IContainer _container;
 
         #endregion
 
@@ -50,25 +49,28 @@ namespace WUBS.Infrastructure.Endpoints
             return _endpoint;
         }
 
-        async Task OnStartAsync()
+        protected async Task OnStartAsync()
         {
             _endpointName = EndpointConfig.GetEndpointName();
 
             try
             {
+                var builder = EndpointConfig.GetContainerBuilder();
                 _endpoint = new SendAndProcessEndpoint<BaseEndpointConfig>(EndpointConfig);
-                _endpoint.Initialize();
-
+                var container = await _endpoint.Create(builder).ConfigureAwait(false);
                 await _endpoint.StartEndpoint().ConfigureAwait(false);
+
+                //starts wcf host
+                _serviceHostsActivator = container.Resolve<ServiceHostsActivator>();
+                _serviceStartAndShutDownActivator = container.Resolve<StartupAndShutdownActivator>();
+
+                await PerformStartupOperations().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 //TODO: Log Exception
                 Environment.FailFast("Failed to start " + _endpointName + " Endpoint." + ex.GetBaseException() + ex);
             }
-
-            _container = _endpoint.GetEndpointContainer();
-            await PerformStartupOperations().ConfigureAwait(false);
         }
 
         #endregion
@@ -79,17 +81,7 @@ namespace WUBS.Infrastructure.Endpoints
         {
             try
             {
-                //starts wcf host
-                _serviceHostsActivator = new ServiceHostsActivator
-                {
-                    Container = EndpointConfig.GetEndpointContainer()
-                };
                 _serviceHostsActivator.Start();
-
-                _serviceStartAndShutDownActivator = new StartupAndShutdownActivator
-                {
-                    Container = EndpointConfig.GetEndpointContainer()
-                };
                 await _serviceStartAndShutDownActivator.Start().ConfigureAwait(false);
             }
             catch (Exception ex)

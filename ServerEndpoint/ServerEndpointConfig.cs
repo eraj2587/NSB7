@@ -54,12 +54,7 @@ namespace ServerEndpoint
             //do additional registration
             return containerBuilder;
         }
-
-        public override IContainer GetEndpointContainer()
-        {
-           return base.GetEndpointContainer();
-        }
-       
+      
 
         #endregion
     }

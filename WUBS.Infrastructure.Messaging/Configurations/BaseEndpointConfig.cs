@@ -26,11 +26,8 @@ namespace WUBS.Infrastructure.Messaging.Configurations
         internal string _configEndpointName;
 
         protected bool _isSendOnly;
-        IEndpointInstance endpoint;
         private readonly TypeScanner typeScanner;
 
-        private IContainer _container;
-        private ContainerBuilder builder;
 
         #endregion
 
@@ -61,16 +58,6 @@ namespace WUBS.Infrastructure.Messaging.Configurations
             if (_isSendOnly)
                 endpointConfiguration.SendOnly();
 
-            builder = GetContainerBuilder();
-
-            // Variation on https://docs.particular.net/samples/dependency-injection/autofac/
-            builder.Register(x => Endpoint.Start(endpointConfiguration))
-                .As<Task<IEndpointInstance>>()
-                .SingleInstance();
-
-            _container = builder.Build();
-
-            endpointConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(_container));
             endpointConfiguration.EnableUniformSession();
 
             endpointConfiguration.SendFailedMessagesTo(GetErrorQueueName());
@@ -195,11 +182,6 @@ namespace WUBS.Infrastructure.Messaging.Configurations
         #endregion
 
         #region Protected Methods
-
-        public virtual IContainer GetEndpointContainer()
-        {
-          return _container;
-        }
 
         protected virtual Func<Type, bool> DefineMessageTypes()
         {
