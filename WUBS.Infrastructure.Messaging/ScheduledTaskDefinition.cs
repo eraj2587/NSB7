@@ -8,28 +8,29 @@ using System.Transactions;
 using WUBS.Contracts.Commands;
 using WUBS.Infrastructure.Messaging.Messages;
 using Autofac;
+using NServiceBus.UniformSession;
 
 namespace WUBS.Infrastructure.Messaging
 {
     public abstract class ScheduledTaskDefinition : IScheduledTask, IHandleOneTimeStartupAndShutdown
     {
-        readonly IEndpointInstance instance;
+        readonly IUniformSession session;
 
-        public ScheduledTaskDefinition(IEndpointInstance instance)
+        public ScheduledTaskDefinition(IUniformSession session)
         {
-            this.instance = instance;
+            this.session = session;
         }
 
         public async Task Startup()
         {
             if (IsEnabled)
-                await instance.SendLocal(new BeginScheduledTask
+                await session.SendLocal(new BeginScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName,
                     WaitDuration = WaitDuration
                 }).ConfigureAwait(false);
             else
-                await instance.SendLocal(new StopScheduledTask
+                await session.SendLocal(new StopScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName
                 }).ConfigureAwait(false);
