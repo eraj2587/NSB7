@@ -46,11 +46,10 @@ namespace WUBS.Infrastructure.Messaging.Endpoints
 
         public virtual async Task StartEndpoint()
         {
+            // Resolve via container, afterall, why register it?
             var container = _endPointConfig.GetEndpointContainer();
-            _endpointInstance = await container.Resolve<Task<IEndpointInstance>>().ConfigureAwait(false);
+            _endpointInstance = container.Resolve<IEndpointInstance>();
         }
-
-
 
         public virtual async Task StopEndpoint()
         {
@@ -92,7 +91,7 @@ namespace WUBS.Infrastructure.Messaging.Endpoints
         public virtual void PublishMessage<TEvent>(Action<TEvent> messageConstructor)
         {
             if (_endpointInstance != null)
-                _endpointInstance.Publish(messageConstructor,new PublishOptions()).ConfigureAwait(false);
+                _endpointInstance.Publish(messageConstructor, new PublishOptions()).ConfigureAwait(false);
         }
 
         public string GetEndpointName()

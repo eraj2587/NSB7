@@ -8,7 +8,6 @@ using System.Transactions;
 using WUBS.Contracts.Commands;
 using WUBS.Infrastructure.Messaging.Messages;
 using Autofac;
-using NServiceBus.UniformSession;
 
 namespace WUBS.Infrastructure.Messaging
 {
@@ -19,12 +18,6 @@ namespace WUBS.Infrastructure.Messaging
         {
             this.instance = instance;
         }
-
-        //IUniformSession _session;
-        //public ScheduledTaskDefinition(IUniformSession session) 
-        //{
-        //    _session = session;
-        //}
 
         public Task Startup()
         {
@@ -63,12 +56,14 @@ namespace WUBS.Infrastructure.Messaging
         private readonly Dictionary<string, IScheduledTask> scheduledTasksByType;
         private readonly ILog logger = LogManager.GetLogger<ScheduledTaskExecutor>();
         public IContainer Container { get; set; }
+        public IScheduledTask[] scheduledTasks { get; set; }
 
-        //public ScheduledTaskExecutor()
-        //{
-        //    var scheduledTasks =Container.Resolve<IScheduledTask[]>();
-        //    scheduledTasksByType = scheduledTasks.ToDictionary(t => t.GetType().FullName, t => t);
-        //}
+        public ScheduledTaskExecutor()
+        {
+            // Container = _container;
+            // var scheduledTasks = Container.Resolve<IScheduledTask[]>();
+            scheduledTasksByType = scheduledTasks.ToDictionary(t => t.GetType().FullName, t => t);
+        }
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<ScheduledTaskSagaData> mapper)
         {
@@ -89,7 +84,7 @@ namespace WUBS.Infrastructure.Messaging
 
             Data.TimeoutIdentifier = timeoutMessage.Identifier;
 
-            return RequestTimeout<ScheduledTaskTimeout>(context,DateTime.Now, timeoutMessage);
+            return RequestTimeout<ScheduledTaskTimeout>(context, DateTime.Now, timeoutMessage);
         }
 
         public Task Handle(StopScheduledTask message, IMessageHandlerContext context)
@@ -100,6 +95,7 @@ namespace WUBS.Infrastructure.Messaging
 
         public Task Timeout(ScheduledTaskTimeout state, IMessageHandlerContext context)
         {
+            MarkAsComplete();
             if (Data.TimeoutIdentifier != state.Identifier) return Task.CompletedTask; ;
 
             var scheduledTask = GetScheduledTask(state.TaskTypeFullName);
@@ -108,7 +104,7 @@ namespace WUBS.Infrastructure.Messaging
             if (null == scheduledTask) { MarkAsComplete(); return Task.CompletedTask; }
 
             //zombie timeout, scheduled task is not enabled to run
-            if (!scheduledTask.IsEnabled) return Task.CompletedTask; 
+            if (!scheduledTask.IsEnabled) return Task.CompletedTask;
 
             var noWait = false;
             try
@@ -134,14 +130,14 @@ namespace WUBS.Infrastructure.Messaging
             };
             Data.TimeoutIdentifier = timeout.Identifier;
 
-           return RequestTimeout(context,
-                noWait ? DateTime.Now : DateTime.Now.AddSeconds(Data.WaitDuration.TotalSeconds),
-                timeout);
+            return RequestTimeout(context,
+                 noWait ? DateTime.Now : DateTime.Now.AddSeconds(Data.WaitDuration.TotalSeconds),
+                 timeout);
         }
 
         private IScheduledTask GetScheduledTask(string taskTypeFullName)
         {
-            if (scheduledTasksByType.ContainsKey(taskTypeFullName))
+            if (scheduledTasksByType != null && scheduledTasksByType.ContainsKey(taskTypeFullName))
                 return scheduledTasksByType[taskTypeFullName];
 
             return null;

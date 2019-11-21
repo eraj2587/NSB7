@@ -26,7 +26,7 @@ namespace WUBS.Infrastructure.Messaging.Configurations
         internal string _configEndpointName;
 
         protected bool _isSendOnly;
-        IEndpointInstance endpoint;
+
         private readonly TypeScanner typeScanner;
 
         private IContainer _container;
@@ -53,6 +53,8 @@ namespace WUBS.Infrastructure.Messaging.Configurations
 
         public virtual EndpointConfiguration BuildConfig()
         {
+            LogManager.Use<DefaultFactory>().Level(LogLevel.Debug);
+
             if (string.IsNullOrEmpty(_configEndpointName))
                 throw new ArgumentNullException(_configEndpointName, "Endpoint name cannot be null");
 
@@ -62,15 +64,20 @@ namespace WUBS.Infrastructure.Messaging.Configurations
                 endpointConfiguration.SendOnly();
 
             builder = GetContainerBuilder();
+            IEndpointInstance endpoint;
 
             // Variation on https://docs.particular.net/samples/dependency-injection/autofac/
-            builder.Register(x => Endpoint.Start(endpointConfiguration))
-                .As<Task<IEndpointInstance>>()
+            builder.Register(x => Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult())
+                .As<IEndpointInstance>()
                 .SingleInstance();
 
             _container = builder.Build();
 
+            //var temp = _container.Resolve<IScheduledTask[]>(); 
+
             endpointConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(_container));
+
+            endpointConfiguration.EnableUniformSession();
 
             endpointConfiguration.SendFailedMessagesTo(GetErrorQueueName());
             endpointConfiguration.AuditProcessedMessagesTo(GetAuditQueueName());

@@ -40,30 +40,34 @@ namespace WUBS.Infrastructure.Endpoints
 
         protected override void OnStop()
         {
-            _endpoint?.StopEndpoint().GetAwaiter().GetResult();
-            PerformOnStopOperations();
+            OnStopAsync().GetAwaiter().GetResult();
         }
+
+        protected async Task OnStopAsync()
+        {
+            if (_endpoint != null) await _endpoint.StopEndpoint().ConfigureAwait(false);
+            await PerformOnStopOperations().ConfigureAwait(false);
+        }
+
+
 
         public SendAndProcessEndpoint<BaseEndpointConfig> GetEndpoint()
         {
             return _endpoint;
         }
 
-        protected async Task OnStartAsync()
+        async Task OnStartAsync()
         {
             try
             {
                 _endpoint = new SendAndProcessEndpoint<BaseEndpointConfig>(EndpointConfig);
                 _endpoint.Initialize();
-               
-                
-
-                await _endpoint.StartEndpoint();
+                await _endpoint.StartEndpoint().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 //TODO: Log Exception
-                Environment.FailFast("Failed to start " + _endpointName + " Endpoint." + ex.GetBaseException()+ex);
+                Environment.FailFast("Failed to start " + _endpointName + " Endpoint." + ex.GetBaseException() + ex);
             }
         }
 
@@ -71,38 +75,20 @@ namespace WUBS.Infrastructure.Endpoints
 
         #region Private Methods
 
-        private void PerformStartupOperations()
+        private async Task PerformStartupOperations()
         {
             try
             {
                 //wire up IEndpointInstance
-                //var session = _endpoint.GetEndpointInstance();
-                //_builder.RegisterInstance(session)
+                //var instance = _endpoint.GetEndpointInstance();
+                //_builder.RegisterInstance(instance)
                 //    .PropertiesAutowired()
                 //    .SingleInstance()
                 //    .As<IEndpointInstance>();
 
-                //using (var scope = _container.BeginLifetimeScope(builder=>
-                //{
-                //    builder.RegisterInstance(session)
-                //        .PropertiesAutowired()
-                //        .SingleInstance()
-                //        .As<IEndpointInstance>();
-                //    builder.Update(_container);
-                //}
-                //))
-                //{
-                //    // Resolve services from a scope that is a child
-                //    // of the root container.
-                //    var serviceHosts = scope.Resolve<IStartableServiceHost[]>();
 
-                //    foreach (var host in serviceHosts)
-                //    {
-                //        host.Start();
-                //    }
-                //}
-                
-                _container = _builder.Build();
+
+                // _container = _builder.Build();
                 //starts wcf host
                 _serviceHostsActivator = new ServiceHostsActivator
                 {
@@ -114,27 +100,28 @@ namespace WUBS.Infrastructure.Endpoints
                 {
                     Container = _container
                 };
-                _serviceStartAndShutDownActivator.Start();
+                await _serviceStartAndShutDownActivator.Start().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 //TODO: Log Exception
                 Environment.FailFast(
-                    "Failed to execute PerformStartupOperations() for " + _endpointName +".", ex);
+                    "Failed to execute PerformStartupOperations() for " + _endpointName + ".", ex);
             }
         }
 
-        private void PerformOnStopOperations()
+        private async Task PerformOnStopOperations()
         {
             try
             {
+                await _serviceStartAndShutDownActivator.Stop().ConfigureAwait(false);
                 _serviceHostsActivator.Stop();
             }
             catch (Exception ex)
             {
                 //TODO: Log Exception
                 Environment.FailFast(
-                    "Failed to execute PerformOnStopOperations() for " + _endpointName +".", ex);
+                    "Failed to execute PerformOnStopOperations() for " + _endpointName + ".", ex);
             }
         }
 

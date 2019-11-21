@@ -69,7 +69,9 @@
     <Compile Include="PaymentReleaseBootstrap.cs" />
     <Compile Include="PaymentCreatedForTestingHandler.cs" />
     <Compile Include="PaymentManagerAuthorizer.cs" />
+    <Compile Include="PaymentReleaseManagerBootstrap.cs" />
     <Compile Include="PaymentService.cs" />
+    <Compile Include="SampleScheduledTask.cs" />
     <Compile Include="ServerEndpoint.cs">
       <SubType>Component</SubType>
     </Compile>
