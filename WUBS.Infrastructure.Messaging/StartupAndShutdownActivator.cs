@@ -9,7 +9,11 @@ namespace WUBS.Infrastructure.Messaging
     internal class StartupAndShutdownActivator : IDisposable
     {
         public IEnumerable<IHandleOneTimeStartupAndShutdown> Handlers { get; set; }
-        public IContainer Container { get; set; }
+
+        public StartupAndShutdownActivator(IHandleOneTimeStartupAndShutdown[] handlers)
+        {
+            Handlers = handlers;
+        }
 
         private async Task InvokeStartup()
         {
@@ -31,7 +35,6 @@ namespace WUBS.Infrastructure.Messaging
 
         public async Task Start()
         {
-            Handlers = Container.Resolve<IHandleOneTimeStartupAndShutdown[]>();
             await InvokeStartup().ConfigureAwait(false);
         }
 

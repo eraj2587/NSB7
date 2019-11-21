@@ -6,10 +6,14 @@ using WUBS.Infrastructure.Wcf;
 
 namespace WUBS.Infrastructure.Messaging
 {
-    public class ServiceHostsActivator :  IDisposable
+    public class ServiceHostsActivator : IDisposable
     {
-        public IStartableServiceHost[] ServiceHosts { get; set; }
-         public IContainer Container { get; set; }
+        public IStartableServiceHost[] ServiceHosts { get; }
+
+        public ServiceHostsActivator(IStartableServiceHost[] serviceHosts)
+        {
+            ServiceHosts = serviceHosts;
+        }
 
         private void InvokeHostStart()
         {
@@ -39,7 +43,6 @@ namespace WUBS.Infrastructure.Messaging
 
         public void Start()
         {
-            ServiceHosts = Container.Resolve<IStartableServiceHost[]>();
             InvokeHostStart();
         }
 
