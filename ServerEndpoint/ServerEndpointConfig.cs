@@ -55,11 +55,6 @@ namespace ServerEndpoint
             return containerBuilder;
         }
 
-        public override IContainer GetEndpointContainer()
-        {
-           return base.GetEndpointContainer();
-        }
-
         protected virtual void SetMaximumConcurrencyLevel(EndpointConfiguration config)
         {
             config.LimitMessageProcessingConcurrencyTo(10);

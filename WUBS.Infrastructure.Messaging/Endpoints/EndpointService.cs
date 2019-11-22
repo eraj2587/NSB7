@@ -22,8 +22,8 @@ namespace WUBS.Infrastructure.Endpoints
         private string _endpointName;
         private ServiceHostsActivator _serviceHostsActivator;
         private StartupAndShutdownActivator _serviceStartAndShutDownActivator;
-        private ContainerBuilder _builder;
-        private IContainer _container;
+        //private ContainerBuilder _builder;
+        //private IContainer _container;
 
         #endregion
 
@@ -32,9 +32,9 @@ namespace WUBS.Infrastructure.Endpoints
         protected override void OnStart(string[] args)
         {
             _endpointName = EndpointConfig.GetEndpointName();
-            _builder = EndpointConfig.GetContainerBuilder();
+            // _builder = EndpointConfig.GetContainerBuilder();
             OnStartAsync().GetAwaiter().GetResult();
-            _container = _endpoint.GetEndpointContainer();
+            //_container = _endpoint.GetEndpointContainer();
             PerformStartupOperations();
         }
 
@@ -56,13 +56,20 @@ namespace WUBS.Infrastructure.Endpoints
             return _endpoint;
         }
 
-        async Task OnStartAsync()
+        protected async Task OnStartAsync()
         {
             try
             {
+                var builder = EndpointConfig.GetContainerBuilder();
                 _endpoint = new SendAndProcessEndpoint<BaseEndpointConfig>(EndpointConfig);
-                _endpoint.Initialize();
+                var container = await _endpoint.Create(builder).ConfigureAwait(false);
                 await _endpoint.StartEndpoint().ConfigureAwait(false);
+
+                //starts wcf host
+                _serviceHostsActivator = container.Resolve<ServiceHostsActivator>();
+                _serviceStartAndShutDownActivator = container.Resolve<StartupAndShutdownActivator>();
+
+                await PerformStartupOperations().ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -79,6 +86,8 @@ namespace WUBS.Infrastructure.Endpoints
         {
             try
             {
+                _serviceHostsActivator.Start();
+                _serviceStartAndShutDownActivator.Start();
                 //wire up IEndpointInstance
                 //var instance = _endpoint.GetEndpointInstance();
                 //_builder.RegisterInstance(instance)
@@ -90,17 +99,19 @@ namespace WUBS.Infrastructure.Endpoints
 
                 // _container = _builder.Build();
                 //starts wcf host
-                _serviceHostsActivator = new ServiceHostsActivator
-                {
-                    Container = _container
-                };
-                _serviceHostsActivator.Start();
+                //_serviceHostsActivator = new ServiceHostsActivator
+                //{
+                //    // Container = _container
+                //    Container = EndpointConfig.GetEndpointContainer()
+                //};
+                //_serviceHostsActivator.Start();
 
-                _serviceStartAndShutDownActivator = new StartupAndShutdownActivator
-                {
-                    Container = _container
-                };
-                await _serviceStartAndShutDownActivator.Start().ConfigureAwait(false);
+                //_serviceStartAndShutDownActivator = new StartupAndShutdownActivator
+                //{
+                //    //Container = _container
+                //    Container = EndpointConfig.GetEndpointContainer()
+                //};
+                //await _serviceStartAndShutDownActivator.Start().ConfigureAwait(false);
             }
             catch (Exception ex)
             {

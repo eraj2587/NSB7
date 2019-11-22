@@ -12,9 +12,11 @@ namespace WUBS.Infrastructure.Messaging.Endpoints
         #region Member Variables and Constatns
 
         private readonly BaseEndpointConfig _endPointConfig;
-        private EndpointConfiguration _nsbConfig;
-        private static IEndpointInstance _endpointInstance;
-        private static IContainer _container;
+        //private EndpointConfiguration _nsbConfig;
+        //private static IEndpointInstance _endpointInstance;
+        //private static IContainer _container;
+        IStartableEndpoint _startableEndpoint;
+        IEndpointInstance _endpointInstance;
 
         #endregion
 
@@ -33,22 +35,38 @@ namespace WUBS.Infrastructure.Messaging.Endpoints
 
         #region Public Methods
 
-        public IContainer GetEndpointContainer()
-        {
-            return _endPointConfig.GetEndpointContainer();
-        }
+        //public IContainer GetEndpointContainer()
+        //{
+        //    return _endPointConfig.GetEndpointContainer();
+        //}
 
-        public EndpointConfiguration Initialize()
+        public async Task<IContainer> Create(ContainerBuilder builder)
         {
-            _nsbConfig = _endPointConfig.BuildConfig();
-            return _nsbConfig;
+            //_nsbConfig = _endPointConfig.BuildConfig();
+            //return _nsbConfig;
+            // Variation on https://docs.particular.net/samples/dependency-injection/autofac/
+
+            var endpointConfiguration = _endPointConfig.BuildConfig();
+
+            builder.Register(x => _endpointInstance)
+                .As<IEndpointInstance>()
+                .SingleInstance();
+
+            var container = builder.Build();
+
+            endpointConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
+
+            _startableEndpoint = await Endpoint.Create(endpointConfiguration).ConfigureAwait(false);
+
+            return container;
         }
 
         public virtual async Task StartEndpoint()
         {
             // Resolve via container, afterall, why register it?
-            var container = _endPointConfig.GetEndpointContainer();
-            _endpointInstance = container.Resolve<IEndpointInstance>();
+            //var container = _endPointConfig.GetEndpointContainer();
+            //_endpointInstance = container.Resolve<IEndpointInstance>();
+            _endpointInstance = await _startableEndpoint.Start().ConfigureAwait(false);
         }
 
         public virtual async Task StopEndpoint()

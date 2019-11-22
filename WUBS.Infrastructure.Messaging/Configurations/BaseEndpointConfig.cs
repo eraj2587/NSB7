@@ -29,8 +29,8 @@ namespace WUBS.Infrastructure.Messaging.Configurations
 
         private readonly TypeScanner typeScanner;
 
-        private IContainer _container;
-        private ContainerBuilder builder;
+        //private IContainer _container;
+        //private ContainerBuilder builder;
 
         #endregion
 
@@ -63,19 +63,19 @@ namespace WUBS.Infrastructure.Messaging.Configurations
             if (_isSendOnly)
                 endpointConfiguration.SendOnly();
 
-            builder = GetContainerBuilder();
-            IEndpointInstance endpoint;
+           // builder = GetContainerBuilder();
+            //IEndpointInstance endpoint;
 
             // Variation on https://docs.particular.net/samples/dependency-injection/autofac/
-            builder.Register(x => Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult())
-                .As<IEndpointInstance>()
-                .SingleInstance();
+           // builder.Register(x => Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult())
+           //     .As<IEndpointInstance>()
+           //     .SingleInstance();
 
-            _container = builder.Build();
+           // _container = builder.Build();
 
             //var temp = _container.Resolve<IScheduledTask[]>(); 
 
-            endpointConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(_container));
+          //  endpointConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(_container));
 
             endpointConfiguration.EnableUniformSession();
 
@@ -202,10 +202,10 @@ namespace WUBS.Infrastructure.Messaging.Configurations
 
         #region Protected Methods
 
-        public virtual IContainer GetEndpointContainer()
-        {
-            return _container;
-        }
+        //public virtual IContainer GetEndpointContainer()
+        //{
+        //    return _container;
+        //}
 
         protected virtual Func<Type, bool> DefineMessageTypes()
         {

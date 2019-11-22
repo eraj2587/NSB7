@@ -75,7 +75,6 @@
     <Compile Include="Security\X509CertificateEx.cs" />
     <Compile Include="Security\X509CertIssuerNameRegistry.cs" />
     <Compile Include="ServiceHostEx.cs" />
-    <Compile Include="ServiceHostsActivator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\WUBS.Contracts\WUBS.Contracts.csproj">

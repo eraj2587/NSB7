@@ -8,31 +8,38 @@ using System.Transactions;
 using WUBS.Contracts.Commands;
 using WUBS.Infrastructure.Messaging.Messages;
 using Autofac;
+using NServiceBus.UniformSession;
 
 namespace WUBS.Infrastructure.Messaging
 {
     public abstract class ScheduledTaskDefinition : IScheduledTask, IHandleOneTimeStartupAndShutdown
     {
-        IEndpointInstance instance;
-        public ScheduledTaskDefinition(IEndpointInstance instance)
+        //readonly IEndpointInstance instance;
+        readonly IUniformSession session;
+        //public ScheduledTaskDefinition(IEndpointInstance instance)
+        //{
+        //    this.instance = instance;
+        //}
+
+        public ScheduledTaskDefinition(IUniformSession session)
         {
-            this.instance = instance;
+            this.session = session;
         }
 
-        public Task Startup()
+        public async Task Startup()
         {
             if (IsEnabled)
-                instance.SendLocal(new BeginScheduledTask
+                await session.SendLocal(new BeginScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName,
                     WaitDuration = WaitDuration
-                }).ConfigureAwait(false).GetAwaiter().GetResult();
+                }).ConfigureAwait(false);
             else
-                instance.SendLocal(new StopScheduledTask
+                await session.SendLocal(new StopScheduledTask
                 {
                     TaskTypeFullName = this.GetType().FullName
-                }).ConfigureAwait(false).GetAwaiter().GetResult();
-            return Task.CompletedTask;
+                }).ConfigureAwait(false);
+
         }
 
         public Task Shutdown()
@@ -56,12 +63,9 @@ namespace WUBS.Infrastructure.Messaging
         private readonly Dictionary<string, IScheduledTask> scheduledTasksByType;
         private readonly ILog logger = LogManager.GetLogger<ScheduledTaskExecutor>();
         public IContainer Container { get; set; }
-        public IScheduledTask[] scheduledTasks { get; set; }
 
-        public ScheduledTaskExecutor()
+        public ScheduledTaskExecutor(IScheduledTask[] scheduledTasks)
         {
-            // Container = _container;
-            // var scheduledTasks = Container.Resolve<IScheduledTask[]>();
             scheduledTasksByType = scheduledTasks.ToDictionary(t => t.GetType().FullName, t => t);
         }
 
@@ -83,7 +87,6 @@ namespace WUBS.Infrastructure.Messaging
             };
 
             Data.TimeoutIdentifier = timeoutMessage.Identifier;
-
             return RequestTimeout<ScheduledTaskTimeout>(context, DateTime.Now, timeoutMessage);
         }
 
