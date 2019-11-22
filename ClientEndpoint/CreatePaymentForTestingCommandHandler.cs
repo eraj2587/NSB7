@@ -1,11 +1,11 @@
 ﻿using NServiceBus;
 using System;
 using System.Threading.Tasks;
-using WUBS.Contracts.Commands;
-using WUBS.Contracts.Events;
-using WUBS.Infrastructure.Messaging;
+using NSB.Contracts.Commands;
+using NSB.Contracts.Events;
+using NSB.Infrastructure.Messaging;
 
-namespace WUBS.Endpoints.Client
+namespace NSB.Endpoints.Client
 {
     public class CreatePaymentForTestingCommandHandler : AbstractService, IHandleMessages<CreatePaymentForTestingCommand>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
-using WUBS.Infrastructure.Wcf.Security;
+using NSB.Infrastructure.Wcf.Security;
 
-namespace WUBS.Endpoints.Server
+namespace NSB.Endpoints.Server
 {
     public class PaymentManagerAuthorizer : AbstractServiceAuthorizer<IPaymentManager>
     {

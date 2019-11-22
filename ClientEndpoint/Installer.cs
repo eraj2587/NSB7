@@ -3,7 +3,7 @@ using System.Configuration.Install;
 using System.Reflection;
 using System.ServiceProcess;
 
-namespace WUBS.Endpoints.Server
+namespace NSB.Endpoints.Server
 {
     [RunInstaller(true)]
     public class WinServiceInstaller: Installer

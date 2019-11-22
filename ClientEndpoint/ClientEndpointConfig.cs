@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using WUBS.Infrastructure.Messaging.Configurations;
+using NSB.Infrastructure.Messaging.Configurations;
 
 namespace ClientEndpoint
 {

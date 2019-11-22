@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NServiceBus;
-using WUBS.Contracts.Commands;
-using WUBS.Infrastructure.Messaging;
-using WUBS.Infrastructure.Messaging.Messages;
+using NSB.Contracts.Commands;
+using NSB.Infrastructure.Messaging;
+using NSB.Infrastructure.Messaging.Messages;
 
-namespace WUBS.Endpoints.Server
+namespace NSB.Endpoints.Server
 {
     class PaymentReleaseBootstrap
     {

@@ -3,8 +3,8 @@ using NServiceBus;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using WUBS.Endpoints.Server;
-using WUBS.Infrastructure.Messaging.Configurations;
+using NSB.Endpoints.Server;
+using NSB.Infrastructure.Messaging.Configurations;
 
 namespace ServerEndpoint
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using NServiceBus;
 using NServiceBus.UniformSession;
-using WUBS.Infrastructure.Messaging;
+using NSB.Infrastructure.Messaging;
 
-namespace WUBS.Endpoints.Server
+namespace NSB.Endpoints.Server
 {
     public class SampleScheduledTask : ScheduledTaskDefinition
     {

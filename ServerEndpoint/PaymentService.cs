@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Configuration;
-using WUBS.Infrastructure.Wcf;
+using NSB.Infrastructure.Wcf;
 
-namespace WUBS.Endpoints.Server
+namespace NSB.Endpoints.Server
 {
     public class PaymentsService : AbstractStartableServiceHost<PaymentManager>
     {

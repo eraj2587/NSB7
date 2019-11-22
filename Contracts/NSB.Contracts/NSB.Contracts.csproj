@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29D073CB-B200-4981-ADD2-E5C9104169A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NSB.Contracts</RootNamespace>
+    <AssemblyName>NSB.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <LangVersion>5</LangVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NServiceBus.Core, Version=7.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NServiceBus.7.1.10\lib\net452\NServiceBus.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache\ICurrencyCache.cs" />
+    <Compile Include="Commands\BeginScheduledTask.cs" />
+    <Compile Include="Commands\ComplianceCommands.cs" />
+    <Compile Include="Commands\CreateOutgoingPaymentCommand.cs" />
+    <Compile Include="Commands\ExceptionRaisedForInTransitPayment.cs" />
+    <Compile Include="Commands\PaymentMonitoringCommand.cs" />
+    <Compile Include="Commands\ReleaseRulesAdapterCommand.cs" />
+    <Compile Include="Commands\RefreshPaymentReleaseRulesCommand.cs" />
+    <Compile Include="Commands\RejectOutgoingPaymentCommand.cs" />
+    <Compile Include="Commands\StopScheduledTask.cs" />
+    <Compile Include="Commands\TimeOutCommands.cs" />
+    <Compile Include="Commands\UpdatePaymentReleaseRulesCommand.cs" />
+    <Compile Include="Commands\ReleaseRulesCommands.cs" />
+    <Compile Include="Commands\ExceptionRaisedForPayment.cs" />
+    <Compile Include="Commands\ExceptionRaisedForPaymentBatch.cs" />
+    <Compile Include="Common\Errors\ExceptionTypes.cs" />
+    <Compile Include="Events\GPGEvents.cs" />
+    <Compile Include="Common\Assemblers\AddressAssembler.cs" />
+    <Compile Include="Common\Errors\ErrorCode.cs" />
+    <Compile Include="Common\Errors\ErrorExceptionAttribute.cs" />
+    <Compile Include="Common\Errors\ErrorMessages.cs" />
+    <Compile Include="Common\Errors\ErrorStringResourceAttribute.cs" />
+    <Compile Include="Common\Errors\ProcessCode.cs" />
+    <Compile Include="Common\Errors\ResourceInfo.cs" />
+    <Compile Include="Common\Errors\ResourceManagerCache.cs" />
+    <Compile Include="Common\Monads\Maybe.cs" />
+    <Compile Include="Common\Monads\MaybeHelper.cs" />
+    <Compile Include="Common\Monads\Validated.cs" />
+    <Compile Include="Common\Validation\ValidationError.cs" />
+    <Compile Include="Common\Validation\ValidationException.cs" />
+    <Compile Include="Common\Validation\ValidationFault.cs" />
+    <Compile Include="Common\Validation\ValidationResult.cs" />
+    <Compile Include="Common\Validation\Validator.cs" />
+    <Compile Include="Events\ComplianceEvents.cs" />
+    <Compile Include="Events\CtxEvents.cs" />
+    <Compile Include="Events\HedgingEvents.cs" />
+    <Compile Include="Events\ICctOrderReleased.cs" />
+    <Compile Include="Events\IPaymentReceived.cs" />
+    <Compile Include="Events\OrderEvents.cs" />
+    <Compile Include="Events\PaymentAccepted.cs" />
+    <Compile Include="Events\PaymentEvents.cs" />
+    <Compile Include="Events\PaymentRejected.cs" />
+    <Compile Include="Events\VirtualAccountEvents.cs" />
+    <Compile Include="Commands\InvalidOutgoingPaymentCommand.cs" />
+    <Compile Include="Models\EncryptAttribute.cs" />
+    <Compile Include="Models\Hold.cs" />
+    <Compile Include="Models\PaymentRecieved.cs" />
+    <Compile Include="Properties\SharedAssemblyInfo.cs" />
+    <Compile Include="Services\DataContracts\Authentication\PartnerAuthentication.cs" />
+    <Compile Include="Services\DataContracts\BusinessType.cs" />
+    <Compile Include="Services\DataContracts\Authentication\TokenAuthorizationCredentials.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceAddress.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceBankAccount.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceCategory.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceCompany.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceContract.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceDelivery.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceEntity.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceIndividual.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceMiscellaneous.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\CompliancePartyInformation.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceReceiverInformation.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceNotifiedPerson.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceScanLog.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceScanLogResponse.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceScanUpdateLog.cs" />
+    <Compile Include="Services\DataContracts\Authentication\TokenAuthorizationCache.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ScanLog.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ComplianceParty.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\Enums.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\NonProcessedScanLog.cs" />
+    <Compile Include="Services\DataContracts\ComplianceContracts\ScanUpdateLog.cs" />
+    <Compile Include="Services\DataContracts\Monitoring\IMonitoring.cs" />
+    <Compile Include="Services\DataContracts\Monitoring\IPaymentMonitoringQuery.cs" />
+    <Compile Include="Services\DataContracts\Monitoring\MonitoringConstants.cs" />
+    <Compile Include="Services\DataContracts\Monitoring\MonitoringEnums.cs" />
+    <Compile Include="Services\DataContracts\Monitoring\PaymentMonitoringAdditionalInfo.cs" />
+    <Compile Include="Services\DataContracts\Monitoring\PaymentMonitoringRequest.cs" />
+    <Compile Include="Services\DataContracts\Monitoring\PaymentMonitoringResponse.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\AccountIdentification4Choice.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\AdviseOfChequeInformation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\AmendmentInformationDetails.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Amount.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\BranchAndFinancialInstitutionIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\BranchIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\CashAccount.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\CashAccountType.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\CategoryPurpose.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\ClearingSystemIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\ClearingSystemMemberIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\ContactDetails.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\CreditTransferTransactionInformation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\CurrencyAndAmount.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\CustomerAdviseOfChequeInitiation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\CustomerCreditTransferInitiation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\CustomerDirectDebitInitiation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\DirectDebitTransaction.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\DirectDebitTransactionInformation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\AddressTypeCode.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\CashAccountTypeCode.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\ChargeBearerTypeCode.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\DebitCreditReportingIndicator.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\InstructionForCreditorAgentCode.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\PainFileFormat.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\PaymentMethodCode.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\PaymentReleaseType.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\SchemeTypeCode.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\Enums\SequenceTypeCode.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\FinancialInstitutionIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\GenericAccountIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\GenericFinancialIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\GenericOrganisationIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\GroupHeader.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\InstructionForCreditorAgent.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\LocalInstrumentChoice.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\MandateRelatedInformation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\OrganisationIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\PartyChoice.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\PartyIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\PaymentIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\PaymentInformation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\PaymentInitiationContainer.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\PaymentTypeInformation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\PersonIdentification.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\PostalAddress.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\RegulatoryAuthority.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\RegulatoryReporting.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\RemittanceInformation.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\ServiceLevelProprietory.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\StructuredRegulatoryReporting.cs" />
+    <Compile Include="Services\DataContracts\PaymentInitiation\StructuredRemittance.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\SwiftUETRFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\Payments\HoldType.cs" />
+    <Compile Include="Services\DataContracts\Payments\OutgoingPaymentDetails.cs" />
+    <Compile Include="Services\DataContracts\Payments\PaymentEntity.cs" />
+    <Compile Include="Services\DataContracts\Payments\PaymentStoreConstants.cs" />
+    <Compile Include="Services\DataContracts\Payments\SortColumnEnums.cs" />
+    <Compile Include="Services\DataContracts\Payments\SortingByColumn.cs" />
+    <Compile Include="Services\DataContracts\Province.cs" />
+    <Compile Include="Services\DataContracts\SalesForce\SFCaseResponse.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\BankHoliday.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\ChannelBusinessDay.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\ReleaseRulesEnums.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\NostroBankAccount.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\NostroBankAccountDetail.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\NostroBankAccountChannelReleaseRule.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\WindowsTimeZone.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\ReleaseRulesRequest.cs" />
+    <Compile Include="Services\DataContracts\ReleaseRulesContracts\ReleaseRulesResponse.cs" />
+    <Compile Include="Services\DataContracts\State.cs" />
+    <Compile Include="Services\DataContracts\Country.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\AutoContractDrawdown.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\AutoSpotContract.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\AutoForwardContract.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\ContractQuery.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\ContractResponse.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\OffsetForwardContractBooked.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\SingleSidedContractBooked.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\SingleSidedContract.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Pricing\AutoSpotContractPricingComponent.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Enums.cs" />
+    <Compile Include="Services\DataContracts\CustomerContracts\SearchCustomerRequest.cs" />
+    <Compile Include="Services\DataContracts\CustomerContracts\SearchCustomerResponse.cs" />
+    <Compile Include="Services\DataContracts\Entities\Address.cs" />
+    <Compile Include="Services\DataContracts\Authentication\AuthenticationRequest.cs" />
+    <Compile Include="Services\DataContracts\Authentication\AuthenticationResponse.cs" />
+    <Compile Include="Services\DataContracts\Authentication\IAuthenticationManager.cs" />
+    <Compile Include="Services\DataContracts\Authentication\Token.cs" />
+    <Compile Include="Services\DataContracts\Documents\Document.cs" />
+    <Compile Include="Services\DataContracts\Documents\DocumentRequest.cs" />
+    <Compile Include="Services\DataContracts\Entities\CustomerUsersResult.cs" />
+    <Compile Include="Services\DataContracts\Entities\CustomerDetailsResult.cs" />
+    <Compile Include="Services\DataContracts\Entities\CustomerInvoiceSettings.cs" />
+    <Compile Include="Services\DataContracts\Entities\Entity.cs" />
+    <Compile Include="Services\DataContracts\Entities\StaffOfficesResult.cs" />
+    <Compile Include="Services\DataContracts\Entities\Vertical.cs" />
+    <Compile Include="Services\DataContracts\Entities\OfficeInvoiceDetails.cs" />
+    <Compile Include="Services\DataContracts\EntityLicense.cs" />
+    <Compile Include="Services\DataContracts\HedgeOrder\OrderContext.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\CodeFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\CreditAccountNumberFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\AlphaNumericFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\ClientAccountFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\DebtorAccountFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\PhoneNumberFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\NameFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\AccountNumberFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\HedgeOrder\Enums.cs" />
+    <Compile Include="Services\DataContracts\HedgeOrder\LimitOrder.cs" />
+    <Compile Include="Services\DataContracts\HedgeOrder\LimitOrderRequest.cs" />
+    <Compile Include="Services\DataContracts\HedgeOrder\LimitOrderResponse.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\PostalAddressFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\PaymentFilesMatch.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\PaymentBatchIdFilter.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\PaymentReleaseGateway.cs" />
+    <Compile Include="Services\DataContracts\Payments\PaymentRequest.cs" />
+    <Compile Include="Services\DataContracts\Payments\PaymentResponse.cs" />
+    <Compile Include="Services\DataContracts\Transactions\PadTransaction.cs" />
+    <Compile Include="Services\DataContracts\Transactions\PadTransactionFilter.cs" />
+    <Compile Include="Services\DataContracts\Transactions\PadTransactionSearchResult.cs" />
+    <Compile Include="Services\DataContracts\Transactions\WorkflowStatus.cs" />
+    <Compile Include="Services\Faults\ErrorReceivedFromFircosoftApiFault.cs" />
+    <Compile Include="Services\Faults\InvalidFircosoftTokenFault.cs" />
+    <Compile Include="Services\Faults\UnableToConnectToFircosoftApiFault.cs" />
+    <Compile Include="Services\Faults\UnableToSendToFircosoftApiFault.cs" />
+    <Compile Include="Services\IComplianceAuxiliaryManager.cs" />
+    <Compile Include="Services\IComplianceCctAdapterManager.cs" />
+    <Compile Include="Services\IComplianceManager.cs" />
+    <Compile Include="Services\ICustomerManager.cs" />
+    <Compile Include="Services\IExternalLimitOrderManager.cs" />
+    <Compile Include="Services\IPadQuery.cs" />
+    <Compile Include="Services\DataContracts\LineItems\AgeingHoldingBalanceSearchResult.cs" />
+    <Compile Include="Services\DataContracts\LineItems\DisplayRate.cs" />
+    <Compile Include="Services\DataContracts\LineItems\GetLineItemByPayerPayeeAccountRequest.cs" />
+    <Compile Include="Services\DataContracts\LineItems\GetLineItemByPayerPayeeNameRequest.cs" />
+    <Compile Include="Services\DataContracts\LineItems\GetLineItemByPaymentIdRequest.cs" />
+    <Compile Include="Services\DataContracts\LineItems\GetLineItemByReferenceIdRequest.cs" />
+    <Compile Include="Services\DataContracts\LineItems\GetLineItemDetailsRequest.cs" />
+    <Compile Include="Services\DataContracts\CustomerContracts\CustomerAccountInfoSearchResultItem.cs" />
+    <Compile Include="Services\DataContracts\CustomerContracts\CustomerAccountInfoSearchRequest.cs" />
+    <Compile Include="Services\DataContracts\CustomerContracts\CustomerAccountInfoSearchResult.cs" />
+    <Compile Include="Services\DataContracts\LineItems\LineItem.cs" />
+    <Compile Include="Services\DataContracts\LineItems\LineItemDetailResult.cs" />
+    <Compile Include="Services\DataContracts\LineItems\LineItemDetailResultItem.cs" />
+    <Compile Include="Services\DataContracts\LineItems\LineItemIdentifier.cs" />
+    <Compile Include="Services\DataContracts\LineItems\LineItemSearchResult.cs" />
+    <Compile Include="Services\DataContracts\LineItems\LineItemSearchResultItem.cs" />
+    <Compile Include="Services\DataContracts\LineItems\LineItemType.cs" />
+    <Compile Include="Services\DataContracts\LineItems\OrderForRepurchaseLineItem.cs" />
+    <Compile Include="Services\DataContracts\LineItems\OrderInfoForLineItemSearchResult.cs" />
+    <Compile Include="Services\DataContracts\MassPay\CurrencyResult.cs" />
+    <Compile Include="Services\DataContracts\MassPay\MassPaySearchResult.cs" />
+    <Compile Include="Services\DataContracts\MassPay\MassPaySearchResultItem.cs" />
+    <Compile Include="Services\DataContracts\MassPay\Partner.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PartnerResult.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentDetails.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentDetailsResult.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentDetailsResultItem.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentIdentifier.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentSearchBankAccountRequest.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentSearchBeneficiaryNameRequest.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentSearchRequest.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentStatusHistoryResultItem.cs" />
+    <Compile Include="Services\DataContracts\MassPay\PaymentStatusHistoryResult.cs" />
+    <Compile Include="Services\DataContracts\Orders\BuildRequest.cs" />
+    <Compile Include="Services\DataContracts\Orders\BuildResponse.cs" />
+    <Compile Include="Services\DataContracts\Entities\Client.cs" />
+    <Compile Include="Services\DataContracts\Orders\CommitRequest.cs" />
+    <Compile Include="Services\DataContracts\Orders\CommitResponse.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Contract.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Drawdown.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\EventSourcing\AggregateRoot.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\EventSourcing\DomainEvent.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\EventSourcing\IAggregate.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\ContractBookedEvent.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\ContractCancelled.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\ContractEvent.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\DrawdownBooked.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\ForwardContractAmended.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\ForwardContractBooked.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\ForwardContractExtended.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\IPricingComponentChanged.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\PredeliveryBooked.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\SpotContractAmended.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Events\SpotContractBooked.cs" />
+    <Compile Include="Services\DataContracts\Money.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\ForwardContract.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\NullContract.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\OffsetForwardContract.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Predelivery.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Pricing\ContractPricingComponent.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Pricing\Rate.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\SpotContract.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Time\Date.cs" />
+    <Compile Include="Services\DataContracts\CurrencyContracts\Time\DateRange.cs" />
+    <Compile Include="Services\DataContracts\Entities\Office.cs" />
+    <Compile Include="Services\DataContracts\Orders\CompleteOrder.cs" />
+    <Compile Include="Services\DataContracts\Orders\GetOrderForRepurchaseRequest.cs" />
+    <Compile Include="Services\DataContracts\Orders\OrderForRepurchaseResult.cs" />
+    <Compile Include="Services\DataContracts\Orders\OrderLineItemReference.cs" />
+    <Compile Include="Services\DataContracts\Orders\RepurchaseCompleteOrder.cs" />
+    <Compile Include="Services\DataContracts\Orders\RepurchaseProfitResponse.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\Attributes\SwiftAddressFormatAttribute.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\PaymentFulfillmentBatch.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\PaymentBatch.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\PaymentBatchDetail.cs" />
+    <Compile Include="Services\DataContracts\PaymentInstruction\ReleasePaymentResult.cs" />
+    <Compile Include="Services\DataContracts\Payments\PaymentStatus.cs" />
+    <Compile Include="Services\DataContracts\Payments\PaymentSourceType.cs" />
+    <Compile Include="Services\DataContracts\Entities\ProcessCenter.cs" />
+    <Compile Include="Services\DataContracts\Orders\ReasonForTransaction.cs" />
+    <Compile Include="Services\DataContracts\Region.cs" />
+    <Compile Include="Services\DataContracts\Repurchase\FindOrderForRepurchaseResult.cs" />
+    <Compile Include="Services\DataContracts\Repurchase\QuoteMethod.cs" />
+    <Compile Include="Services\DataContracts\Repurchase\QuoteRecord.cs" />
+    <Compile Include="Services\DataContracts\Repurchase\QuoteRepurchaseResult.cs" />
+    <Compile Include="Services\DataContracts\Setting.cs" />
+    <Compile Include="Services\DataContracts\SettingValue.cs" />
+    <Compile Include="Services\DataContracts\SourceSystem.cs" />
+    <Compile Include="Services\DataContracts\TasksQuery.cs" />
+    <Compile Include="Services\DataContracts\TasksResponse.cs" />
+    <Compile Include="Services\DataContracts\Entities\User.cs" />
+    <Compile Include="Services\DataContracts\Task.cs" />
+    <Compile Include="Services\DataContracts\VirtualAccounts\VirtualAccountActivity.cs" />
+    <Compile Include="Services\DataContracts\VirtualAccounts\VirtualAccountActivityQuery.cs" />
+    <Compile Include="Services\DataContracts\VirtualAccounts\VirtualAccountActivityResponse.cs" />
+    <Compile Include="Services\Faults\FuturePaymentEventLogNotProcessedFault.cs" />
+    <Compile Include="Services\Faults\InvalidDocumentDirectoryFault.cs" />
+    <Compile Include="Services\Faults\InvalidOrderIdFault.cs" />
+    <Compile Include="Services\Faults\InvalidRateFault.cs" />
+    <Compile Include="Services\Faults\InvalidSearchCriteriaFault.cs" />
+    <Compile Include="Services\Faults\InvalidLimitOrderStateFault.cs" />
+    <Compile Include="Services\Faults\UnableToGetCostPricingSpreadWhenQuotingFault.cs" />
+    <Compile Include="Services\Faults\UnableToQuoteFault.cs" />
+    <Compile Include="Services\Faults\CustomerNotEligibleFault.cs" />
+    <Compile Include="Services\Faults\UnableToTransferOrderToFinanceFault.cs" />
+    <Compile Include="Services\IContractQuery.cs" />
+    <Compile Include="Services\ICustomerQuery.cs" />
+    <Compile Include="Services\ILimitOrderQuery.cs" />
+    <Compile Include="Services\ILimitOrderManager.cs" />
+    <Compile Include="Services\ILineItemQuery.cs" />
+    <Compile Include="Services\IMassPayQuery.cs" />
+    <Compile Include="Services\DataContracts\FeeType.cs" />
+    <Compile Include="Services\DataContracts\FundingMethod.cs" />
+    <Compile Include="Services\DataContracts\Payments\Payment.cs" />
+    <Compile Include="Services\DataContracts\VirtualAccounts\AccountBalanceEntry.cs" />
+    <Compile Include="Services\DataContracts\Entities\Customer.cs" />
+    <Compile Include="Services\DataContracts\Fee.cs" />
+    <Compile Include="Services\DataContracts\Rate.cs" />
+    <Compile Include="Services\DataContracts\Orders\QuoteRequest.cs" />
+    <Compile Include="Services\DataContracts\Orders\QuoteResponse.cs" />
+    <Compile Include="Services\DataContracts\Timezone.cs" />
+    <Compile Include="Services\DataContracts\Currency.cs" />
+    <Compile Include="Services\DataContracts\VirtualAccounts\HoldingBalance.cs" />
+    <Compile Include="Services\DataContracts\Orders\Enums.cs" />
+    <Compile Include="Services\DataContracts\VirtualAccounts\VirtualAccount.cs" />
+    <Compile Include="Services\Faults\InvalidCurrencyFault.cs" />
+    <Compile Include="Services\Faults\InvalidCustomerFault.cs" />
+    <Compile Include="Services\Faults\InvalidVirtualAccountFault.cs" />
+    <Compile Include="Events\ContractEvents.cs" />
+    <Compile Include="Events\EndpointAttribute.cs" />
+    <Compile Include="Services\IOrderCaptureManager.cs" />
+    <Compile Include="Services\IComplianceQuery.cs" />
+    <Compile Include="Services\IPaymentBatchQuery.cs" />
+    <Compile Include="Services\IOrderQuery.cs" />
+    <Compile Include="Services\IPaymentQuery.cs" />
+    <Compile Include="Services\IPaymentReleaseRulesAdapter.cs" />
+    <Compile Include="Services\IQueriesManager.cs" />
+    <Compile Include="Services\IReferenceDataQuery.cs" />
+    <Compile Include="Services\DataContracts\Platform.cs" />
+    <Compile Include="Services\DataContracts\PickListItem.cs" />
+    <Compile Include="Services\IReleaseRulesAdapterManager.cs" />
+    <Compile Include="Services\IReleaseRulesManager.cs" />
+    <Compile Include="Services\ISettingsManager.cs" />
+    <Compile Include="Services\IUserQuery.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common\Errors\ErrorStrings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\NServiceBus.7.1.10\analyzers\dotnet\cs\NServiceBus.Core.Analyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Utilities\NSB.Utilities.Common\NSB.Utilities.Common.csproj">
+      <Project>{c47708dd-6e17-40d9-b887-6493d68453dd}</Project>
+      <Name>NSB.Utilities.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

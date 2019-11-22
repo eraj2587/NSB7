@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using NServiceBus;
 using NServiceBus.UniformSession;
-using WUBS.Contracts.Commands;
-using WUBS.Infrastructure.Messaging;
+using NSB.Contracts.Commands;
+using NSB.Infrastructure.Messaging;
 
-namespace WUBS.Endpoints.Server
+namespace NSB.Endpoints.Server
 {
     public class PaymentManager : AbstractService, IPaymentManager
     {
@@ -32,7 +32,7 @@ namespace WUBS.Endpoints.Server
         }
     }
 
-    [ServiceContract(Namespace = "http://schema.business.westernunion.com/contracts/")]
+    [ServiceContract(Namespace = "http://schema.business.test.com/contracts/")]
     public interface IPaymentManager
     {
         [OperationContract]

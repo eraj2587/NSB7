@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using WUBS.Contracts.Commands;
-using WUBS.Infrastructure.Endpoints;
-using WUBS.Infrastructure.Messaging.Configurations;
+using NSB.Contracts.Commands;
+using NSB.Infrastructure.Endpoints;
+using NSB.Infrastructure.Messaging.Configurations;
 
 namespace ServerEndpoint
 {
@@ -36,7 +36,7 @@ namespace ServerEndpoint
                     ad.FirstChanceException += (s, ea) => Console.WriteLine($"FirstChanceException {ea.Exception}");
                     ad.UnhandledException += (s, ea) => Console.WriteLine($"UnhandledException {ea.ExceptionObject}");
 
-                    Console.Title = "WUBS.Endpoint.Server";
+                    Console.Title = "NSB.Endpoint.Server";
                     //Console.CancelKeyPress += (sender, e) => { service.OnStop(); };
 
                     var tcs = new TaskCompletionSource<object>();

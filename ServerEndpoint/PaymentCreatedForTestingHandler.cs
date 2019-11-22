@@ -1,9 +1,9 @@
 ﻿using NServiceBus;
 using System;
 using System.Threading.Tasks;
-using WUBS.Contracts.Events;
+using NSB.Contracts.Events;
 
-namespace WUBS.Endpoints.Client
+namespace NSB.Endpoints.Client
 {
     public class PaymentCreatedForTestingHandler : IHandleMessages<IPaymentCreatedForTesting>
     {

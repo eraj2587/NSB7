@@ -23,3 +23,13 @@
 /WUBS.Infrastructure.Logging/bin/Debug
 /WUBS.Infrastructure.Messaging/bin/Debug
 /WUBS.Infrastructure.WCF/bin/Debug
+/Contracts/NSB.Contracts/bin/Debug
+/Contracts/NSB.Contracts/obj
+/NSB.Infrastructure.Logging/bin/Debug
+/NSB.Infrastructure.Logging/obj
+/NSB.Infrastructure.Messaging/bin/Debug
+/NSB.Infrastructure.Messaging/obj
+/NSB.Infrastructure.WCF/bin/Debug
+/NSB.Infrastructure.WCF/obj
+/Utilities/NSB.Utilities.Common/bin/Debug
+/Utilities/NSB.Utilities.Common/obj

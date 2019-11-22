@@ -1,6 +1,6 @@
 ﻿using System;
-using WUBS.Infrastructure.Endpoints;
-using WUBS.Infrastructure.Messaging.Configurations;
+using NSB.Infrastructure.Endpoints;
+using NSB.Infrastructure.Messaging.Configurations;
 
 namespace ClientEndpoint
 {
@@ -28,7 +28,7 @@ namespace ClientEndpoint
                 // to run interactive from a console or as a windows service
                 if (Environment.UserInteractive)
                 {
-                    Console.Title = "WUBS.Endpoint.Client";
+                    Console.Title = "NSB.Endpoint.Client";
                     Console.CancelKeyPress += (sender, e) => { service.OnStop(); };
                     service.OnStart(null);
 
